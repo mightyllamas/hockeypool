@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<title>Draft Picks By Team ${year}</title>
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/reset/reset.css"> 
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/base/base.css"> 
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/fonts/fonts.css"> 
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/grids/grids.css"> 
+</head>
+<body class="yui-skin-sam">
+<div id="doc3" class="yui-t1">
+    <div id="hd">
+        <h2>Draft Picks ${year}</h2>
+    </div>
+    <div id="bd">
+        <div id="yui-main">
+            <div class="yui-b">
+                <dl>
+%for team in teams:
+        <dt><a name="${team.section}" href="${prefix}teams/${team.section}_main.html">${team.name}</a></dt>
+        <dd><ul>
+    %for pick in team.picks :
+            <li>Round ${pick[0]}: ${teamDict[pick[1]].name}</li>
+    %endfor
+        </ul></dd>
+%endfor
+                </dl>
+            </div>
+        </div>
+        <div class="yui-b">
+%for currYear in allYears:
+            <a href="${prefix}draft/draft${currYear}.html">${currYear}</a>${spacer}
+%endfor
+            <hr>
+%if started:
+            <a href="${prefix}draftperformance.html">Draft Performance</a>${spacer}
+%endif
+            <a href="${prefix}frontpage.html">Front Page</a>${spacer}
+        </div>
+    </div>
+    <div id="ft">
+    </div>
+</div>
+</body>
+</html>

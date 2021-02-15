@@ -1,0 +1,55 @@
+nashcity, Connor McDavid
+experience, Jack Eichel
+sleepers, John Klingberg
+ducks, Tyler Johnson
+brainstorm, Teuvo Teravainen
+rawmeat, Kevin Hayes
+thrill, David Pastrnak
+gambit, Sam Bennett
+redarmy, Elias Lindholm
+thunder, Benoit Pouliot
+bombers, Oliver Bjorkstrand
+deadthings, Teemu Pulkkinen
+llamas, Sven Baertschi
+--
+nashcity, Jason Zucker
+experience, Jimmy Hayes
+sleepers, Rickard Rakell
+ducks, Sam Reinhart
+gambit, Jake Virtanen
+rawmeat, Artemi Panarin
+thrill, Tyler Myers
+gambit, David Savard
+redarmy, Tomas Tatar
+thunder, Anton Stralman
+bombers, Shea Theodore
+deadthings, Valentin Zykov
+nashcity, Jannik Hansen
+--
+nashcity, Michael Del Zotto
+experience, Travis Hamonic
+llamas, Mikael Granlund
+ducks, Michael Raffl
+gambit, Max Domi
+rawmeat, Daniel DeKeyser
+brainstorm, Devan Dubnyk
+brainstorm, Matt Dumba
+thrill, Petr Mrazek
+llamas, Jiri Hudler
+deadthings, Mika Zibanejad
+brainstorm, Matt Niskanen
+--
+nashcity, Nick Bjugstad
+experience, Andrew Hammond
+sleepers, Dmitrij Jaskin
+ducks, Noah Hanifin
+rawmeat, Dylan Larkin
+thrill, Jaromir Jagr
+deadthings, Pavel Zacha
+--
+nashcity, Cam Ward
+deadthings, Damon Severson
+--
+nashcity, Scott Darling
+--
+nashcity, Jiri Sekac

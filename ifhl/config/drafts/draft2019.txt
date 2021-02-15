@@ -1,0 +1,63 @@
+ducks,Jack Hughes
+experience,tomas Tatar
+thunder, Kevin Hayes
+sleepers,Kasperi Kapanen
+redarmy,Jordan Binnington
+thrill,Kappo Kakko
+brainstorm,Cale Makar
+deadthings,Dylan Strome
+nashcity,Nikita Gusev
+llamas,Maxime Comtois
+gambit,Taro Hirose
+rawmeat, Troy Terry
+brainstorm,eric Gustafsson
+--
+ducks,Jack Campbell
+experience,travis Sanheim
+thunder,Dante Fabbro
+sleepers,Dominik Kahun
+redarmy,Darnell Nurse
+thrill,Drake Batherson
+brainstorm,Carter Hart
+deadthings,Petr Mrazek
+nashcity,Josh Morrissey
+llamas,Michael Ferland
+gambit,Cody Glass
+rawmeat,Mackenzie Blackwood
+nashcity,Filip Hronek
+--
+ducks,Josh Anderson
+experience,tom Wilson
+thunder,Ilya Mikheyev
+sleepers,Andreas Athanasiou
+redarmy,Darcy Kuemper
+thunder,Kristian Vesalainen
+llamas,Semyon Varlamov
+deadthings,Andrew Shaw
+rawmeat,Conor Garland
+gambit,Thatcher Demko
+gambit,Robin Lehner
+--
+ducks,Connor Brown
+experience,Devon toews
+thrill,Adam Fox
+redarmy,Carl Grundstrom
+redarmy,samuel Girard
+bombers,Kyle Capobianco
+deadthings,Erik Brannstrom
+bombers,Mathieu Joseph
+bombers,Victor Olofsson
+--
+experience,Jimmy schuldt
+redarmy,thomas Griess
+thrill,Kirill Kaprizov
+bombers,Alexander texier
+deadthings,Kirby Dach
+bombers,Juuso Valimaki
+--
+thrill,Vitali Kravtsov
+bombers,Owen tippett
+bombers,Brett Connelly
+--
+thrill,Joson Robertson
+bombers,Ryan Murray

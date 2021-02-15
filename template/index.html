@@ -1,0 +1,177 @@
+<%
+import util
+%>
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html lang="en" class="no-js lt-ie10 lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js lt-ie10 lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js lt-ie10 lt-ie9"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js lt-ie10"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<head>
+  <meta charset="utf-8" />
+     
+  <title>${pool['PoolName']} Hockey Pool</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, minimal-ui">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="description" content="IFHL hockey pool">
+		
+<style type="text/css">
+td.col-rank { text-align: right }
+td.col-delta { text-align: right }
+td.col-points { text-align: right }
+td.col-dtp { text-align: right }
+td.col-remain { text-align: right }
+td.col-left { text-align: right }
+td.col-poolpts { text-align: right }
+td.col-old { text-align: right }
+div.positive { color: #339933 }
+div.negative { color: #ff0000 }
+.icon-bar { background-color: #000000 }
+</style>
+  <!-- Font Awesome -->
+  <link href="css/font-awesome.css" rel="stylesheet">
+
+  <!-- Latest compiled and minified Bootstrap CSS -->
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/rwd-table.min.css?v=5.0.3">
+</head>
+
+<body data-spy="scroll" data-target="#navbar" data-offset="50">
+  <div id="navbar" class="navbar" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <span class="navbar-brand">IFHL</span>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+%if pool['MultiYearPool'] :
+          <li><a href="news.html">News</a></li>
+          <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Draft <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+              <li><a href="draftbyteam.html">By Team</a></li>
+              <li><a href="draft/draft${draftYear}.html">In Order</a></li>
+              </ul>
+           </li>
+          <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Players <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+              <li><a href="unsigned/c.html">Unsigned</a></li>
+              <li><a href="allskaters.html">All Skaters</a></li>
+              <li><a href="allgoalies.html">All Goalies</a></li>
+              </ul>
+           </li>
+           <li><a href="summary/games.html">Stats</a></li>
+           <li><a href="http://www.dreadfest.com/hprules.html">Rules</a></li>
+%endif
+           <li><a href="frontpage.html">Classic</a></li>
+        </ul>
+      </div>
+    </div>
+</div>
+
+  <section id="front">
+      <div class="container">
+           <div class="table-responsive" data-pattern="priority-columns" data-add-focus-btn="">
+               <table cellspacing="0" id="main" class="table table-bordered table-striped">
+                  <thead>
+                     <tr>
+                        <th data-priority="1">#</th>
+                        <th data-priority="1">+</th>
+                        <th data-priority="1">Team Name</th>
+                        <th data-priority="1">Pts</th>
+                        <th data-priority="1">+</th>
+%if pool['UsesSchedule'] and pool['Started'] :
+                        <th data-priority="3">+P</th>
+                        <th data-priority="3">GR</th>
+                        <th data-priority="3">Pred</th>
+%endif
+%if pool['UsesSalary'] :
+                        <th data-priority="6">Salary</th>
+%endif
+%if pool['MultiYearPool'] :
+                        <th data-priority="6">PP</th>
+                        <th data-priority="6">Last</th>
+                        <th data-priority="6">!</th>
+%endif
+                     </tr>
+                  </thead>
+                  <tbody>
+%for team in teams:
+                    <tr>
+                        <td>${team.rank}</td>
+                        <td>${util.PosNeg(team.deltaRank)}</td>
+                        <td><a href="${prefix}teams/${team.section}_new.html">${team.name}</a></td>
+                        <td>${team.points}</td>
+                        <td>${util.PosNeg(team.deltaPoints)}</td>
+%if pool['UsesSchedule'] and pool['Started'] :
+                        <td>${util.PosNeg(team.predDeltaPoints)}</td>
+                        <td>${team.gamesLeft}</td>
+                        <td>${team.predictedPoints}</td>
+%endif
+%if pool['UsesSalary'] :
+                        <td>${team.remainFancy}</td>
+%endif
+%if pool['MultiYearPool'] :
+                        <td>${team.poolpoints}</td>
+                        <td>${team.lastyear}</td>
+%if not pool['Started'] :
+                        <td>${team.awards}</td>
+%else :
+                        <td><b>${team.alert}</b></td>
+%endif
+%endif
+                    </tr>
+%endfor
+                  </tbody>
+               </table>
+            </div>  
+      </div> <!-- end container -->
+  </section> <!-- end section -->
+
+ <div class="container">
+    <div class="row">
+       <div class="feature col-md-3 col-xs-12">
+%if pool['UsesSchedule'] :
+            Games Played: ${gamesCounting} (${round(fracGames,2)})${spacer}
+            Smallpuck: ${smallPuck.gaa + 2}${spacer}
+            ${smallPuck.GetLinkName(False,'plain','')} ${spacer}
+%endif
+%if pool['UsesSalary'] :
+            Cap is ${cap}${spacer}
+%endif
+       </div>
+       <div class="col-md-9 col-xs-12">
+%if recentLogs != None and pool['UsesSalary'] :
+            <strong>News from ${recentLogs[0].isoformat()}</strong>
+                <ul>
+    %for entry in recentLogs[1] :
+                    <li>${entry}</li>
+    %endfor
+                </ul>
+%endif
+       </div>
+    </div>
+ </div>
+
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+      <!-- Latest compiled and minified Bootstrap JavaScript -->
+      <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+      <script src="js/rwd-table.min.js?v=5.0.3"></script>
+      <script>
+      $(function() {
+          $('#bs-deps').on('hide.bs.collapse show.bs.collapse', function () {
+              $('#bs-deps-toggle').children('span').toggleClass('fa-chevron-down').toggleClass('fa-chevron-up');
+          })
+      });
+      </script>
+		
+	</body>
+</html>

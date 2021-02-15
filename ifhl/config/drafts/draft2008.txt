@@ -1,0 +1,60 @@
+sleepers, mike green
+gambit, david booth
+redarmy, patrick sharp
+brainstorm, kyle okposo
+nashcity, mikkel boedker
+experience, siarhei kastitsyn
+bombers, devin setoguchi
+llamas, brent burns
+rawmeat, tomas plekanec
+thrill, kyle turris
+thrill, derick brassard
+thunder, daniel carcillo
+thunder, steven stamkos
+redarmy, dennis wideman
+--
+rawmeat, carey price
+gambit, teemu selanne
+deadthings, alex pietrangelo
+brainstorm, nikita filatov
+nashcity, r.j. umberger
+experience, mark streit
+bombers, drew doughty
+llamas, tobias enstrom
+rawmeat, braydon coburn
+thrill, ron hainsey
+redarmy, david perron
+thunder, johan franzen
+ducks, james wisniewski
+--
+sleepers, milan lucic
+gambit, jose theodore
+deadthings, mathieu garon
+brainstorm, mason raymond
+nashcity, nigel dawes
+experience, sean avery
+bombers, keith yandle
+llamas, brandon dubinsky
+brainstorm, andrej sekera
+bombers, dustin byfuglien
+redarmy, zach bogosian
+nashcity, jonas hiller
+--
+sleepers, david krejci
+gambit, patrick berglund
+deadthings, scottie upshall
+brainstorm, blake wheeler
+experience, tom gilbert
+bombers, alexander steen
+bombers, niklas hagman
+redarmy, justin williams
+ducks, trent hunter
+--
+sleepers, pascal leclaire
+gambit, cameron barker
+experience, david backes
+ducks, curtis mcelhinney
+ducks, edward purcell
+ducks, daniel girardi
+
+

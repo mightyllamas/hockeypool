@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<title>Team ${fancyName} Statistics</title>
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/reset/reset.css"> 
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/base/base.css"> 
+%if prefix != 'plain':
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/fonts/fonts.css"> 
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/grids/grids.css"> 
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/datatable/assets/skins/sam/datatable.css" >
+<style type="text/css">
+td.yui-dt-col-gp div { text-align: right }
+td.yui-dt-col-pc div { text-align: right }
+td.yui-dt-col-age div { text-align: right }
+td.yui-dt-col-number div { text-align: right }
+td.yui-dt-col-salary div { text-align: right }
+td.yui-dt-col-avgsal div { text-align: right }
+</style>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/element/element.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/datasource/datasource.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/datatable/datatable.js"></script>
+<script type="text/javascript" src="../js/utils.js"></script>
+<script type="text/javascript">
+function GetFormatter( x ) {
+    if( x[0] == '$' ) return salaryFormat
+    if( x.indexOf("number") == 0 || x.indexOf("gp") == 0 ) return YAHOO.widget.DataTable.formatNumber
+    return fixedDigitFormat(1)
+}
+function RosterTable( statList, headerList ) {
+    var myColumnDefs = [ {key:"name",label:"Team Name", sortable:true, sortOptions:{field:"sortname"}} ];
+    var myFields = [{key:"sortname"}, {key:"name"}];
+    for (var i = 0; i < statList.length; i++ )
+    {
+        myColumnDefs.push( {key:statList[i],label:headerList[i],formatter:GetFormatter(statList[i]),sortable:true} );
+        myFields.push( {key:statList[i], parser:YAHOO.util.DataSource.parseNumber} )
+    }
+    this.myDataSource = new YAHOO.util.DataSource(YAHOO.util.Dom.get("teamStatTable"));
+    this.myDataSource.responseType = YAHOO.util.DataSource.TYPE_HTMLTABLE;
+    this.myDataSource.responseSchema = { fields: myFields };
+    this.myDataTable = new YAHOO.widget.DataTable("teamStatMarkup", myColumnDefs, this.myDataSource,
+            { caption:"<h2>Team ${fancyName} Statistics <\/h2>",
+            sortedBy:{key:"${sortKey}", dir:"asc"} }
+    );
+};
+YAHOO.util.Event.addListener(window, "load", function() {
+     var1 = new RosterTable( ${repr(statList)}, ${repr(headers)} );
+});
+</script>
+%endif
+</head>
+<body class="yui-skin-sam">
+<div id="doc3" class="yui-t1">
+    <div id="hd">
+%if prefix == 'plain':
+        <h1>Team ${fancyName} Statistics</h1>
+%endif
+    </div>
+    <div id="bd">
+        <div id="yui-main">
+            <div class="yui-b">
+                <div id="teamStatMarkup">
+                    <table id="teamStatTable">
+%if prefix == 'plain':
+                        <thead><tr>
+                            <td>Team Name</td>
+    %for headerName in headers :
+                            <td>${headerName}</td>
+    %endfor
+                        </tr></thead>
+%endif
+                        <tbody>
+%for team in teamList :
+                            <tr>
+    %if prefix != 'plain':
+                                <td>${team.name}</td>
+    %endif
+                                <td><a href="../${prefix}teams/${team.section}_main.html">${team.name}</a></td>
+    %for statName in statList :
+                                <td>${team.GetStat(statName, prefix)}</td>
+    %endfor
+                            </tr>
+%endfor
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="yui-b">
+            <a href="../${prefix}frontpage.html">Front Page</a>${spacer}
+            <hr>
+%for currPlain, currFancy in pages:
+    %if currFancy != fancyName:
+            <a href="${currPlain}.html">
+    %endif
+            ${currFancy}
+    %if currFancy != fancyName:
+            </a>
+    %endif
+            ${spacer}
+%endfor
+        </div>
+    </div>
+    <div id="ft">
+    </div>
+</div>
+
+</body>
+</html>

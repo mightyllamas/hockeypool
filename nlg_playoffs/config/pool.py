@@ -1,0 +1,9 @@
+PoolName = 'NLG Playoff'
+RuleSet = 'nlg_playoff'
+StatSource = 'playoffs'
+UsesSalary = False
+UsesSchedule = False
+MultiYearPool = False
+PoolYear = 2014
+Round = 4
+Started = True

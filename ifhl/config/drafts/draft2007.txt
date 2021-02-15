@@ -1,0 +1,61 @@
+sleepers, paul stastny
+bombers, niklas backstrom
+redarmy, shea weber
+llamas, patrick kane
+brainstorm, erik johnson
+nashcity, jonathan toews
+experience, jack johnson
+deadthings, kristopher letang
+gambit, peter mueller
+rawmeat, drew stafford
+thrill, nicklas backstrom
+nashcity, taylor pyatt
+thunder, steven stamkos
+--
+sleepers, andrei kastsitsyn
+rawmeat, tom poti
+bombers, ryan shannon
+llamas, zach parise
+brainstorm, andrew greene
+nashcity, kevin bieksa
+experience, peter cajanek
+deadthings, nathan paetsch
+gambit, alexei ponikarovsky
+rawmeat, guillaume latendresse
+thrill, duncan keith
+sleepers, john tavares
+thunder, sam gagner
+--
+sleepers, angelo esposito
+brainstorm, martin hanzal
+redarmy, michal rozsival
+thrill, cory murphy
+brainstorm, eric brewer
+nashcity, mike smith
+experience, peter budaj
+deadthings, jakub voracek
+brainstorm, mikko koivu
+bombers, kris russell
+bombers, brett sterling
+ducks, tom greiss
+--
+sleepers, nikolai khabibulin
+bombers, andrew cogliano
+redarmy, kyle wellwood
+thrill, rostislav olesz
+thrill, josh harding
+thrill, alexei cherepanov
+experience, jochen hecht
+deadthings, igor grigorenko
+gambit, chris clark
+--
+thrill, marc-edouard vlasic
+ducks, brett clark
+sleepers, ryane clowe
+redarmy, james van riemsdyk
+experience, tony salmelainen
+gambit, steve downie
+experience, scott walker
+gambit, ryan suter
+
+

@@ -1,0 +1,56 @@
+nashcity,jiri Tlusty
+deadthings,Jonathan Drouin
+brainstorm,Nathan Mackinnon
+experience,Nazem Kadri
+thunder,Valeri Nichushkin
+rawmeat,Beau Bennett
+bombers,Brendan Gallagher
+redarmy,Marcus Johansson
+gambit,Brandon Saad
+ducks,Cory Conacher
+thrill,Viatcheslav Voynov
+llamas,Aleksander Barkov
+sleepers,Alex Chiasson
+---
+thrill,Craig Anderson
+deadthings,Mats Zuccarello-Aasen
+brainstorm,Tyson Barrie
+experience,Sergei Bobrovsky
+thunder,Seth Jones
+rawmeat,Paul Martin
+bombers,Mark Scheifele
+redarmy,Torey Krug
+llamas,Viktor Stalberg
+ducks,Boone Jenner
+bombers,Robin Lehner
+llamas,Matt Frattin
+sleepers,Patrick Wiercioch
+---
+nashcity,Raphael Diaz
+deadthings,David Clarkson
+brainstorm,Johan Franzen
+experience,Brad Boyes
+rawmeat,Jared Spurgeon
+rawmeat,Charlie Coyle
+thrill,Jussi Jokinen
+gambit,Ben Bishop
+ducks,Matthew Bartkowski
+thrill,Jonas Brodin
+ducks,Brent Seabrook
+sleepers,Bryan Bickell
+---
+gambit,Sergei Gonchar
+experience,Jake Muzzin
+thunder,Tomas Hertl
+brainstorm,Ondrej Pavelec
+gambit,Joel Ward
+sleepers,Jared Staal
+---
+brainstorm,Ryan Malone
+thunder,Sean Monahan
+gambit,Tyler Toffoli
+---
+brainstorm,Gustav Nyquist
+gambit,Bo Horvat
+---
+gambit,Morgan Rielly

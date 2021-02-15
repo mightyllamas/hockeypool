@@ -1,0 +1,60 @@
+sleepers, Taylor Hall
+gambit, p.k. Subban
+deadthings, Tyler Myers
+rawmeat, chris Stewart
+thunder, Nikolai Zherdev
+brainstorm,  Jordan Eberle
+experience, Michael Del Zotto
+bombers, Tyler Seguin
+redarmy, Jussi Jokinen
+ducks, Tomas Fleischmann
+thunder, Patric Hornqvist
+thrill, Niclas Bergfors
+llamas, Magnus Paajarvi-svensson
+--
+sleepers, Tyler Ennis
+gambit, Nazem Kadri
+deadthings, Jimmy Howard
+rawmeat, John Carlson
+nashcity, Jamie McBain
+brainstorm, Jiri Hudler
+experience, Steve Downie
+bombers, Cam Fowler
+redarmy, Tyler Bozak
+ducks, Brooks Laich
+bombers, Jonathan Bernier
+thrill, Dmitry Kulikov
+rawmeat, Jason Demers
+--
+sleepers, Matt Moulson
+thrill, Antti Niemi
+deadthings, Troy Brouwer
+thrill, Eric Fehr
+nashcity, Jason LaBarbera
+brainstorm, Jeff Skinner
+experience, Sam Gagner
+llamas, Michal Neuvirth
+redarmy, Craig Anderson
+ducks, T.J. Galiardi
+thunder, Ryan Malone
+thrill, Jaroslav Halak
+nashcity, Nikolai Kulemin
+--
+sleepers, Jeff Schultz
+gambit, Nikolai Antropov
+deadthings, Blake Comeau
+thrill, Anton Stralman
+thunder, Kurtis Foster
+experience, Marc Staal
+redarmy, Rich Peverley
+--
+sleepers, Cody Franson
+gambit, Wayne Simmonds
+deadthings, Tomas Plekanec
+thunder, Antoine Vermette
+--
+sleepers, Jonas Hiller
+gambit, Steve Sullivan
+thunder, Curtis Glencross
+--
+thunder, Radim Vrbata

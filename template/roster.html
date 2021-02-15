@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html lang="en" class="no-js lt-ie10 lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js lt-ie10 lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js lt-ie10 lt-ie9"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js lt-ie10"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<head>
+  <meta charset="utf-8" />
+     
+  <title>${teamname}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, minimal-ui">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="description" content="IFHL hockey pool">
+		
+<style type="text/css">
+td.col-GP { text-align: right }
+td.col-dGP { text-align: right }
+td.col-P { text-align: right }
+td.col-dP { text-align: right }
+td.col-Salary { text-align: right }
+td.col-PPG { text-align: right }
+td.col-dPPG { text-align: right }
+td.col-GAA { text-align: right }
+td.col-dGAA { text-align: right }
+td.col-Sv { text-align: right }
+td.col-SO { text-align: right }
+td.col-W { text-align: right }
+td.col-Age { text-align: right }
+td.col-PC { text-align: right }
+td.col-dPC { text-align: right }
+td.col-GC { text-align: right }
+td.col-dGC { text-align: right }
+td.col-FOG { text-align: right }
+div.positive { color: #339933 }
+div.negative { color: #ff0000 }
+div.ghost { font-style: italic }
+.icon-bar { background-color: #000000 }
+</style>
+  <!-- Font Awesome -->
+  <link href="../css/font-awesome.css" rel="stylesheet">
+
+  <!-- Latest compiled and minified Bootstrap CSS -->
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/rwd-table.min.css?v=5.0.3">
+</head>
+
+<body data-spy="scroll" data-target="#navbar" data-offset="50">
+  <div id="navbar" class="navbar" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <span class="navbar-brand">IFHL</span>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../draftbyteam.html#${team.section}">Picks</a></li>
+          <li><a href="../news.html#${team.section}">News</a></li>
+          <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Teams <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+%for other in teams:
+              <li><a href="${other.section}_new.html">${other.name}</a>
+%endfor
+              </ul>
+           </li>
+           <li><a href="${team.section}_main.html">Old</a></li>
+        </ul>
+      </div>
+    </div>
+</div>
+
+ <div class="container">
+    <div class="row">
+       <div class="feature col-md-3 hidden-xs hidden-sm">
+    %if 'logo' in team.__dict__:
+            <img src="../${team.logo}" alt="${team.name}"
+            width=80
+            >
+    %endif
+       </div>
+       <div class="col-md-3 col-sm-6 col-xs-12">
+          <strong>${teamname}</strong>${spacer}
+          GM: ${team.gm}${spacer}
+%if pool['UsesSalary'] :
+          Cap room: ${team.remainFancy}${spacer}
+%endif
+%if pool['MultiYearPool'] :
+          Empty spots: ${team.emptySpots}${spacer}
+%endif
+       </div>
+       <div class="col-md-3 col-sm-6 hidden-xs">
+            ${pool['PoolYear'] + 1} Contracts:${spacer}
+            Raises: $${"%.3f"%(team.contract['raises']/1000000)}M${spacer}
+            RFA: ${team.contract['RFA']}&nbsp;
+            UFA: ${team.contract['UFA']}${spacer}
+            Unknown: ${team.contract['unknown']}${spacer}
+       </div>
+    </div>
+ </div>
+
+%for sect in ['forward', 'goalie'] :
+  <section id="${sect}">
+      <div class="container">
+           <div class="table-responsive" data-pattern="priority-columns" data-add-focus-btn="">
+               <table cellspacing="0" id="${sect}" class="table table-bordered table-striped">
+                  <thead>
+                     <tr>
+                        <th>Name</th>
+    %for title, pri in posInfo[sect]['header'] :
+                        <th data-priority="${pri}">${title}</th>
+    %endfor
+                     </tr>
+                  </thead>
+                  <tbody>
+    %for pos, fancyPos in positions :
+    %if (pos == 'g' and sect == 'goalie') or (pos != 'g' and sect == 'forward') :
+    %if pos != 'g' and pos != 'lw' :
+                  <tr> <td colspan="${len(posInfo[sect]['stats']) + 1}"></td></tr>
+    %endif
+    %for player in roster[pos]:
+                     <tr>
+                        <td>${player.GetLinkName(True, '','../')}</td>
+        %for statName in posInfo[sect]['stats'] :
+                        <td class="col-${statName}">${player.GetDecoratedStat(statName )}</td>
+        %endfor
+                     </tr>      
+    %endfor
+    %endif
+    %endfor
+                  </tbody>
+               </table>
+            </div>  
+      </div> <!-- end container -->
+  </section> <!-- end section -->
+%endfor
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+      <!-- Latest compiled and minified Bootstrap JavaScript -->
+      <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+      <script src="../js/rwd-table.min.js?v=5.0.3"></script>
+      <script>
+      $(function() {
+          $('#bs-deps').on('hide.bs.collapse show.bs.collapse', function () {
+              $('#bs-deps-toggle').children('span').toggleClass('fa-chevron-down').toggleClass('fa-chevron-up');
+          })
+      });
+      </script>
+		
+	</body>
+</html>

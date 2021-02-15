@@ -1,0 +1,54 @@
+sleepers,Alexis Lafreniere
+gambit,Kailer Yamamoto
+deadthings,Dominik Kubalik
+thunder,Tim Stuetzle
+experience,Neal Pionk
+bombers,Igor Shesterkin
+ducks,Tristan Jarry
+thrill,Nick Suzuki
+nashcity,Joel Farabee
+llamas,Adam Boqvist
+nashcity,Denis Gurianov
+rawmeat,Robert Thomas
+brainstorm,Bryan Rust
+--
+sleepers,Jakob Chychrun
+gambit,Grigori Denisenko
+deadthings,Nils Hoglander
+thunder,Anthony Duclair
+experience,Zack Kassian
+bombers,Quinton Byfield
+ducks,Trevor Zegras
+thrill,Ilya Samsonov
+redarmy,Roope Hintz
+llamas,Ryan Strome
+nashcity,Bowen Byram
+rawmeat,Ville Heinola
+llamas,Lucas Raymond
+--
+sleepers,Pavel Francouz
+llamas,Ilya Sorokin
+deadthings,Elvis Merzlikins
+thunder,Dylan Cozens
+experience,gabriel Vilardi
+bombers,Joshua Norris
+ducks,Vasily Podkolzin
+thrill,Anton Khudobin
+bombers,yegor Sharangovich
+brainstorm,Oskar Lindblom
+rawmeat,Jordan Greenway
+bombers,Jaccob Slavin
+--
+sleepers,Philippe Myers
+thrill,Alexander Holtz
+deadthings,Owen Tippett
+experience,Chris Driedger
+bombers,Joel Armia
+ducks,Thomas Harley
+sleepers,Alexandar Georgiev
+redarmy,Juuse Saros
+bombers,Bobby Ryan
+--
+sleepers,Zach Whitecloud
+bombers,Ty Smith
+redarmy,Jack Quinn

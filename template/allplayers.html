@@ -1,0 +1,290 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<title>All ${pageName}</title>
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/reset/reset.css"> 
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/base/base.css"> 
+%if prefix != 'plain':
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/fonts/fonts.css"> 
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/grids/grids.css"> 
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/button/assets/skins/sam/button.css">
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/datatable/assets/skins/sam/datatable.css" >
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/paginator/assets/skins/sam/paginator.css">
+<style type="text/css">
+td.yui-dt-col-gp div { text-align: right }
+td.yui-dt-col-p div { text-align: right }
+td.yui-dt-col-ppg div { text-align: right }
+td.yui-dt-col-salary div { text-align: right }
+td.yui-dt-col-age div { text-align: right }
+</style>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/element/element.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/button/button.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/datasource/datasource.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/datatable/datatable.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/paginator/paginator.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/cookie/cookie.js"></script> 
+<script type="text/javascript" src="js/utils.js"></script>
+<script type="text/javascript">
+
+var cookieName = "All${pageName}";
+var filterFunctionDefs = {
+    name: function(spec,value) { return value.name.match(spec); },
+%if pageName != 'Goalies' :
+    pos: function(spec,value) {
+        if( spec == 'all' ) { return true; }
+        if( spec == 'f' ) { return value.pos != "D"; }
+        return spec == value.pos.toLowerCase();
+    },
+%endif
+    gp: function(spec,value) { return value.gp >= parseInt(spec); },
+%if pageName != 'Goalies' :
+    ppg: function(spec,value) { return value.ppg >= parseFloat(spec); },
+%else:
+    ppg: function(spec,value) { return value.ppg <= parseFloat(spec); },
+%endif
+    salary: function(spec,value) { return value.salary <= parseInt(spec); },
+    age: function(spec,value) { return value.age <= parseInt(spec); },
+    ifhl: function(spec,value) {
+        if( spec == 'signed' ) { return value.ifhlteam != 'Unsigned'; }
+        if( spec == 'unsigned' ) { return value.ifhlteam == 'Unsigned'; }
+        return true;
+    },
+    diff: function(spec,value) { return spec == 'all' || value.pos != value.nhlpos; }
+};
+
+function getSpecString() {
+    var specString = "";
+    cookie = {}
+    for( var specName in filterFunctionDefs ) {
+        formValue = YAHOO.util.Dom.get("form_"+specName).value;
+        specString += "," + specName + "=" + formValue;
+        cookie[specName] = formValue;
+    }
+    var nextYear = new Date();
+    nextYear.setFullYear( nextYear.getFullYear() + 1 );
+    YAHOO.util.Cookie.setSubs( cookieName, cookie, {expires:nextYear} );
+    return specString.slice(1);
+};
+
+YAHOO.util.Event.addListener(window, "load", function() {
+    var1 = new function() {
+        var myColumnDefs = [
+            {key:"name",label:"Player Name",sortable:true, sortOptions:{field:"sortname"}},
+%if pageName != 'Goalies' :
+            {key:"pos",label:"Pos", sortable:true},
+%endif
+            {key:"gp",label:"GP",formatter:YAHOO.widget.DataTable.formatNumber,sortable:true},
+            {key:"p",label:"P",formatter:YAHOO.widget.DataTable.formatNumber,sortable:true},
+            {key:"ppg",label:"${mainStat}",formatter:fixedDigitFormat(2),sortable:true},
+            {key:"salary",label:"Salary",formatter:salaryFormat,sortable:true},
+            {key:"age",label:"Age",formatter:YAHOO.widget.DataTable.formatNumber,sortable:true},
+%if pageName != 'Goalies' :
+            {key:"fog",label:"FOG", formatter:fixedDigitFormat(2),sortable:true},
+%endif
+            {key:"ifhlteam",label:"IFHL Team" },
+            {key:"team",label:"NHL Team" },
+        ];
+
+        myDataSource = new YAHOO.util.DataSource(YAHOO.util.Dom.get("allplayerstable"));
+        myDataSource.responseType = YAHOO.util.DataSource.TYPE_HTMLTABLE;
+        myDataSource.doBeforeCallback = function( req, raw, res, cb ) {
+            var data  = res.results || [],
+                filtered = [],
+                i,l,j;
+            var filters = req.split(",");
+            var numFilters = filters.length;
+            for( i = 0; i < numFilters; ++i ) {
+                var splitted = filters[i].split("=");
+                filters[i] = [filterFunctionDefs[splitted[0]], splitted[1]];
+            }
+            for (i = 0, l = data.length; i < l; ++i) {
+                var pushValue = true;
+                for( j = 0; j < numFilters; ++j ) {
+                    if( !filters[j][0]( filters[j][1], data[i] ) ) {
+                        pushValue = false;
+                        break;
+                    }
+                }
+                if( pushValue ) {
+                    filtered.push(data[i]); 
+                }
+            }
+            res.results = filtered;
+            return res;
+        }
+
+        myDataSource.responseSchema = {
+            fields: [{key:"sortname"},
+                    {key:"name"},
+%if pageName != 'Goalies':
+                    {key:"pos"},
+%endif
+                    {key:"gp", parser:YAHOO.util.DataSource.parseNumber},
+                    {key:"p", parser:YAHOO.util.DataSource.parseNumber},
+                    {key:"ppg", parser:YAHOO.util.DataSource.parseNumber},
+                    {key:"salary", parser:YAHOO.util.DataSource.parseNumber},
+                    {key:"age", parser:YAHOO.util.DataSource.parseNumber},
+%if pageName != 'Goalies':
+                    {key:"fog", parser:YAHOO.util.DataSource.parseNumber},
+%endif
+                    {key:"ifhlteam"},
+                    {key:"team"},
+            ]
+        };
+        var thePaginator = new YAHOO.widget.Paginator({
+            rowsPerPage   : 50
+        });
+
+        cookie = YAHOO.util.Cookie.getSubs( cookieName );
+        if( cookie )
+        {
+            for( var formName in cookie ) {
+                YAHOO.util.Dom.get("form_" + formName).value = cookie[formName];
+            }
+        }
+        myDataTable = new YAHOO.widget.DataTable("allplayers", myColumnDefs, myDataSource,
+                { paginator: thePaginator,
+                  sortedBy:{key:"ppg",dir:"${sortDir}"},
+                  initialRequest:getSpecString() }
+        );
+
+        var handleClick = function() {
+            var state = myDataTable.getState();
+            myDataSource.sendRequest( getSpecString(), {
+                success : myDataTable.onDataReturnInitializeTable,
+                failure : myDataTable.onDataReturnInitializeTable,
+                scope   : myDataTable,
+                argument: state
+            });
+        };
+        var btn = new YAHOO.widget.Button("form_go");
+        btn.on("click", handleClick);
+        var oElement = document.getElementById("form_name");
+        var listener = new YAHOO.util.KeyListener(oElement, {keys:13}, handleClick);
+        listener.enable();
+    };
+});
+</script>
+%endif
+</head>
+<body class="yui-skin-sam">
+<div id="doc3" class="yui-t1">
+    <div id="hd">
+		<h1>All ${pageName}</h1>
+    </div>
+    <div id="bd">
+        <div id="yui-main">
+            <div class="yui-b">
+                <div id="allplayers">
+                    <table id="allplayerstable">
+%if prefix == 'plain':
+                        <thead>
+                            <td>Player Name</td>
+%if pageName != 'Goalies' :
+                            <td>Pos</td>
+%endif
+                            <td>GP</td>
+                            <td>P</td>
+                            <td>${mainStat}</td>
+                            <td>Salary</td>
+                            <td>Age</td>
+%if pageName != 'Goalies' :
+                            <td>FOG</td>
+                            <td>Pos</td>
+%endif
+                            <td>IFHL Team</td>
+                            <td>NHL Team</td>
+                        </thead>
+%endif
+%for player in players:
+                            <tr>
+    %if prefix != 'plain':
+                                <td>${player.GetSortName()}</td>
+    %endif
+                                <td>${player.GetLinkName(False,prefix,"")}</td>
+    %if pageName != 'Goalies' :
+                                <td>${player.position.upper()}</td>
+    %endif
+                                <td>${player.gp}</td>
+                                <td>${player.p}</td>
+		%if pageName == 'Goalies' :
+                                <td>${round(player.gaa,2)}</td>
+		%else :
+                                <td>${round(player.ppg,2)}</td>
+		%endif
+    %if prefix == 'plain':
+                                <td>${player.salaryFancy}</td>
+    %else :
+                                <td>${player.salary}</td>
+    %endif
+                                <td>${player.age}</td>
+    %if pageName != 'Goalies' :
+                                <td>${round(player.fog, 2)}</td>
+    %endif
+        %if player.ifhlteam == 'unsigned':
+                                <td>Unsigned</td>
+        %else:
+                                <td><a href="${prefix}teams/${player.ifhlteam}_main.html">${teamDict[player.ifhlteam].name}</a></td>
+        %endif
+    %if player.team in util.TeamAbbrevs:
+                                <td><a href="http://sports.yahoo.com/nhl/teams/${util.TeamAbbrevs[player.team]}">${player.team}</a></td>
+    %else:
+                                <td>${player.team}</td>
+    %endif
+                            </tr>
+%endfor
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="yui-b">
+            <form action=""><p>
+                Name: <input id="form_name" type="text" value=""> <br>
+    %if pageName != 'Goalies' :
+                Position:
+                <select id="form_pos">
+                    <option value="all">All</option>
+                    <option value="c">Centre</option>
+                    <option value="d">Defence</option>
+                    <option value="lw">Left Wing</option>
+                    <option value="rw">Right Wing</option>
+                    <option value="f">Forward</option>
+                </select> <br>
+    %endif
+                Min GP: <input id="form_gp" type="text" size="3" value="1"> <br>
+    %if pageName != 'Goalies' :
+                Min PPG: <input id="form_ppg" type="text" size="4" value="0.1"> <br>
+    %else:
+                Max GAA: <input id="form_ppg" type="text" size="4" value="4.0"> <br>
+    %endif
+                Max Salary: <input id="form_salary" type="text" size="8" value="10000000"> <br>
+                Max Age: <input id="form_age" type="text" size="3" value="40"> <br>
+                IFHL:
+                <select id="form_ifhl">
+                    <option value="all">All</option>
+                    <option value="signed">Signed</option>
+                    <option value="unsigned">Unsigned</option>
+                </select> <br>
+                NHLPos:
+                <select id="form_diff">
+                    <option value="all">All</option>
+                    <option value="different">Different</option>
+                </select> <br>
+                <span id="form_go" class="yui-button yui-push-button">
+                    <span class="first-child">
+                        <button type="button">Search</button>
+                    </span>
+                </span>
+            </p></form>
+            <hr>
+            <a href="${prefix}frontpage.html">Front Page</a>${spacer}
+        </div>
+    </div>
+    <div id="ft">
+    </div>
+</div>
+</body>
+</html>

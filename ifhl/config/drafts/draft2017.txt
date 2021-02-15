@@ -1,0 +1,55 @@
+experience, Conor Sheary
+gambit, Brock Boeser
+nashcity, Victor Arvidsson
+sleepers, Jake Guentzel
+redarmy, Richard Panik
+thunder, Brendan Perlini
+ducks, Nico Hischier
+thrill, Charlie McAvoy
+brainstorm, Clayton Keller
+deadthings, Brady Skjei
+bombers, Juuse Saros
+rawmeat, Alex DeBrincat
+llamas, Troy Stecher
+--
+experience, Mirco Mueller
+gambit, Nolan Patrick
+nashcity, Evgeny Dadanov
+sleepers, Ivan Barbashev
+redarmy, Sven Andrighetto
+thunder, Damon Severson
+ducks, Kailer Yamamoto
+thrill, Scott Darling
+brainstorm, Matthew Barzal
+deadthings, Kevin Labanc
+bombers, Jaccob Slavin
+bombers, Janne Kuokkanen
+llamas, Antti Raanta
+--
+experience, Jonas Brodin
+llamas, Artturi Lehkonen
+nashcity, Mikhail Sergachev
+sleepers, Joshua Bailey
+redarmy, Tobias Rieder
+thunder, Anthony DeAngelo
+ducks, Josh Ho-Sang
+thunder, J.T Miller
+thrill, Bobby Ryan
+deadthings, Mike Condon
+bombers, Phillipe Grubauer
+redarmy, Braydon Point
+--
+experience, Nathan Beaulieu
+gambit, Anders Lee
+gambit, Thomas Chabot
+sleepers, Vladislav Namestnikov
+thrill, Jakub Vrana
+thrill, Bryan Rust
+thrill, Matt Niskanen
+--
+experience, Phillp Danault
+gambit, Vadim Shipyachov
+nashcity, Cory Schneider
+--
+experience, Keith Kinkaid
+nashcity, Tyson Jost

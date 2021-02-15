@@ -1,0 +1,11 @@
+/*/data
+/*/fetch
+/*/log
+/*/tmp
+*.xml
+grok*
+/*/site
+/*/backup
+/*/dustbin
+.DS_Store
+*.pyc

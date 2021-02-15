@@ -1,0 +1,54 @@
+experience, Rasmus Dahlin
+redarmy, Andrei Svechnikov
+deadthings, William Karlsson
+thunder, ty rattie
+nashcity, elias pettersson
+bombers, sean couturier
+thrill, jake debrusk
+llamas, brady tkachuk
+gambit, jonathan marchessault
+sleepers, alex tuch
+rawmeat, ondrej kase
+ducks, colin miller
+bombers, daniel sprong
+--
+experience, craig smith
+redarmy, filip zadina
+deadthings, jason zucker
+thunder, andreas johnsson
+brainstorm, timo meier
+ducks, casey mittelstadt
+thrill, marc-andre fleury
+bombers, ryan donato
+gambit, will butcher
+sleepers, brandon montour
+rawmeat, miro heiskanen
+rawmeat, jesper bratt
+nashcity, eeli tolvanen
+--
+experience, jonathan toews
+redarmy, jacob markstrom
+deadthings, carter hutton
+thrill, valeri nichushkin
+nashcity, anze kopitar
+ducks, quinn hughes
+thrill, mike smith
+llamas, warren foegele
+gambit, ilya kovalchuk
+llamas, ryan pulock
+llamas, jesperi kotkaniemi
+bombers, yanni gourde
+--
+thrill, dylan sikura
+deadthings, erik haula
+nashcity, christian fischer
+nashcity, tyler bertuzzi
+gambit, nikolai goldobin
+sleepers, vince dunn
+bombers, evan bouchard
+--
+nashcity, michael matheson
+nashcity, zach parise
+sleepers, anthony beauvillier
+--
+nashcity, martin necas

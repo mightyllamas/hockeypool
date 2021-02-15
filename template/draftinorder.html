@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<title>Draft Picks ${year}</title>
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/reset/reset.css"> 
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/base/base.css"> 
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/fonts/fonts.css"> 
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/grids/grids.css"> 
+<style type="text/css">
+li.used { font-weight: bold }
+</style>
+</head>
+<body class="yui-skin-sam">
+<div id="doc3" class="yui-t1">
+    <div id="hd">
+        <h2>Draft Picks ${year}</h2>
+    </div>
+    <div id="bd">
+        <div id="yui-main">
+            <div class="yui-b">
+                <dl>
+%for roundNum, roundPicks in zip(range(1,11),picks):
+                    <dt>Round ${roundNum}:</dt>
+                    <dd><ol>
+    %for pick, player, info, playerData in roundPicks:
+                        <li class="${"used" if info and not player else "unused"}"><a href="../${prefix}teams/${pick}_main.html">${teamDict[pick].name}</a>
+        %if player:
+            %if info :
+                drafted <a href="../${prefix}${info}">${player}</a>
+            %else:
+                drafted ${player}
+            %endif
+        %endif
+                        </li>
+    %endfor
+                    </ol></dd>
+%endfor
+                </dl>
+            </div>
+        </div>
+        <div class="yui-b">
+%for currYear in allYears:
+    %if currYear != year:
+            <a href="${prefix}draft${currYear}.html">${currYear}</a>${spacer}
+    %endif
+%endfor
+            <hr>
+            <a href="../${prefix}draftbyteam.html">Draft By Team</a>${spacer}
+%if started:
+            <a href="../${prefix}draftperformance.html">Draft Performance </a>${spacer}
+%endif
+            <a href="../${prefix}frontpage.html">Front Page</a>${spacer}
+        </div>
+    </div>
+    <div id="ft">
+    </div>
+</div>
+</body>
+</html>

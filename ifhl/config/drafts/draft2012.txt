@@ -1,0 +1,52 @@
+brainstorm,Nail Yakupov
+sleepers,Andrew Shaw
+nashcity,Alex Galchenyuk
+rawmeat,Brad Marchand
+thrill,Justin Schultz
+deadthings,Mikael Granlund
+experience,Marcus Foligno
+thunder,Carl Hagelin
+redarmy,David Desharnais
+bombers,Damien Brunner
+bombers,Sven Baertschi
+ducks,Nick Leddy
+llamas,Jakob Silfverberg
+---
+brainstorm,Scott Hartnell
+sleepers,Justin Faulk
+nashcity,Troy Brouwer
+rawmeat,Brendan Smith
+gambit,Ryan Strome
+deadthings,Adam Henrique
+experience,Wayne Simmonds
+thunder,Chris Kreider
+redarmy,Ryan McDonagh
+thrill,Dougie Hamilton
+bombers,Roman Josi
+ducks,Ryan O'Reilly
+gambit,Chris Higgins
+---
+thrill,Evgeni Kuznetsov
+thrill,Stefan Elliott
+nashcity,Thomas Greiss
+thunder,Jamie McGinn
+llamas,Mike Smith
+deadthings,Nick Foligno
+experience,Viktor Stalberg
+redarmy,Brian Elliott
+redarmy,Matt Read
+ducks,Cameron Atkinson
+gambit,Pascal Dupuis
+---
+redarmy,Frans Nielsen
+sleepers,Matt Halischuk
+sleepers,Braden Holtby
+gambit,Kevin Bieksa
+deadthings,Ryan Murray
+thunder,Nikita Nikitin
+redarmy,Jaden Schwartz
+ducks,Filip Forsberg
+---
+sleepers,Mark Scheifele
+gambit,Jannik Hansen
+thunder,Valtteri Filppula

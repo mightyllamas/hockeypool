@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<title>Draft Picks By Performance ${year}</title>
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/reset/reset.css"> 
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/base/base.css"> 
+%if prefix != 'plain':
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/fonts/fonts.css"> 
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/grids/grids.css"> 
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/datatable/assets/skins/sam/datatable.css" >
+<style type="text/css">
+td.yui-dt-col-gp div { text-align: right }
+td.yui-dt-col-p div { text-align: right }
+td.yui-dt-col-ppg div { text-align: right }
+td.yui-dt-col-round div { text-align: right }
+td.yui-dt-col-pick div { text-align: right }
+td.yui-dt-col-rank div { text-align: right }
+td.yui-dt-col-overall div { text-align: right }
+</style>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/element/element.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/datasource/datasource.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/datatable/datatable.js"></script>
+<script type="text/javascript" src="js/utils.js"></script>
+<script type="text/javascript">
+YAHOO.util.Event.addListener(window, "load", function() {
+    var1 = new function() {
+        var myColumnDefs = [
+            {key:"rank",label:"#",formatter:YAHOO.widget.DataTable.formatNumber,sortable:true},
+            {key:"name",label:"Player Name",sortable:true, sortOptions:{field:"sortname"}},
+            {key:"gp",label:"GP",formatter:YAHOO.widget.DataTable.formatNumber,sortable:true},
+            {key:"p",label:"P",formatter:YAHOO.widget.DataTable.formatNumber,sortable:true},
+            {key:"ppg",label:"PPG",formatter:fixedDigitFormat(2),sortable:true},
+            {key:"round",label:"Round",formatter:YAHOO.widget.DataTable.formatNumber,sortable:true},
+            {key:"pick",label:"Pick",formatter:YAHOO.widget.DataTable.formatNumber,sortable:true},
+            {key:"overall",label:"Ov",formatter:YAHOO.widget.DataTable.formatNumber,sortable:true},
+            {key:"ifhlteam",label:"IFHL Team",sortable:true},
+        ];
+
+        this.myDataSource = new YAHOO.util.DataSource(YAHOO.util.Dom.get("standtable"));
+        this.myDataSource.responseType = YAHOO.util.DataSource.TYPE_HTMLTABLE;
+        this.myDataSource.responseSchema = {
+            fields: [
+                    {key:"rank", parser:YAHOO.util.DataSource.parseNumber},
+                    {key:"sortname"},
+                    {key:"name"},
+                    {key:"gp", parser:YAHOO.util.DataSource.parseNumber},
+                    {key:"p", parser:YAHOO.util.DataSource.parseNumber},
+                    {key:"ppg", parser:YAHOO.util.DataSource.parseNumber},
+                    {key:"round", parser:YAHOO.util.DataSource.parseNumber},
+                    {key:"pick", parser:YAHOO.util.DataSource.parseNumber},
+                    {key:"overall", parser:YAHOO.util.DataSource.parseNumber},
+                    {key:"ifhlteam"},
+            ]
+        };
+
+        this.myDataTable = new YAHOO.widget.DataTable("standings", myColumnDefs, this.myDataSource,
+                { sortedBy:{key:"p",dir:"desc"}}
+        );
+    };
+});
+</script>
+%endif
+</head>
+<body class="yui-skin-sam">
+<div id="doc3" class="yui-t1">
+    <div id="hd">
+        <h1>Draft Picks By Performance ${year}</h1>
+    </div>
+    <div id="bd">
+        <div id="yui-main">
+            <div class="yui-b">
+                <div id="standings">
+                    <table id="standtable">
+%if prefix == 'plain':
+                        <thead>
+                            <td>Player Name</td>
+                            <td>GP</td>
+                            <td>P</td>
+                            <td>PPG</td>
+                            <td>Round</td>
+                            <td>Pick</td>
+                            <td>IFHL Team</td>
+                        </thead>
+%endif
+%for rank, val in zip(range(1,400), perfList):
+<%
+    player, roundNum, pickNum, overall = val
+%>
+                            <tr>
+                                <td>${rank}</td>
+    %if prefix != 'plain':
+                                <td>${player.GetSortName()}</td>
+    %endif
+                                <td>${player.GetLinkName(False,prefix,'../')}</td>
+                                <td>${player.gp}</td>
+                                <td>${player.p}</td>
+                                <td>${round(player.ppg,2)}</td>
+                                <td>${roundNum}</td>
+                                <td>${pickNum}</td>
+                                <td>${overall}</td>
+        %if player.ifhlteam == 'unsigned':
+                                <td>Unsigned</td>
+        %else:
+                                <td><a href="../${prefix}teams/${player.ifhlteam}_main.html">${teamDict[player.ifhlteam].name}</a></td>
+        %endif
+%endfor
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="yui-b">
+%for currYear in allYears:
+            <a href="${prefix}draft/draft${currYear}.html">${currYear}</a>${spacer}
+%endfor
+            <hr>
+%if started:
+            <a href="${prefix}draftbyteam.html">Draft Performance</a>${spacer}
+%endif
+            <a href="${prefix}frontpage.html">Front Page</a>${spacer}
+        </div>
+    </div>
+    <div id="ft">
+    </div>
+</div>
+</body>
+</html>

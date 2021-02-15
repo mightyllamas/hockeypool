@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<title>${pageName} ${fancyPos}</title>
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/reset/reset.css"> 
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/base/base.css"> 
+%if prefix != 'plain':
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/fonts/fonts.css"> 
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/grids/grids.css"> 
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/datatable/assets/skins/sam/datatable.css" >
+<style type="text/css">
+td.yui-dt-col-gp div { text-align: right }
+td.yui-dt-col-p div { text-align: right }
+td.yui-dt-col-ppg div { text-align: right }
+td.yui-dt-col-salary div { text-align: right }
+td.yui-dt-col-age div { text-align: right }
+</style>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/element/element.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/datasource/datasource.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/datatable/datatable.js"></script>
+<script type="text/javascript" src="../js/utils.js"></script>
+<script type="text/javascript">
+YAHOO.util.Event.addListener(window, "load", function() {
+    var1 = new function() {
+        var myColumnDefs = [
+            {key:"name",label:"Player Name",sortable:true, sortOptions:{field:"sortname"}},
+            {key:"gp",label:"GP",formatter:YAHOO.widget.DataTable.formatNumber,sortable:true},
+            {key:"p",label:"P",formatter:YAHOO.widget.DataTable.formatNumber,sortable:true},
+            {key:"ppg",label:"${mainStat}",formatter:fixedDigitFormat(2),sortable:true},
+%if plainPos != 'g' and plainPos != 'd' :
+            {key:"fog",label:"FOG",formatter:fixedDigitFormat(2),sortable:true},
+%endif
+            {key:"salary",label:"Salary",formatter:salaryFormat,sortable:true},
+            {key:"age",label:"Age",formatter:YAHOO.widget.DataTable.formatNumber,sortable:true},
+%if pageName != 'Unsigned':
+            {key:"ifhlteam",label:"IFHL Team"},
+%endif
+            {key:"team",label:"NHL Team"},
+        ];
+
+        this.myDataSource = new YAHOO.util.DataSource(YAHOO.util.Dom.get("standtable"));
+        this.myDataSource.responseType = YAHOO.util.DataSource.TYPE_HTMLTABLE;
+        this.myDataSource.responseSchema = {
+            fields: [{key:"sortname"},
+                    {key:"name"},
+                    {key:"gp", parser:YAHOO.util.DataSource.parseNumber},
+                    {key:"p", parser:YAHOO.util.DataSource.parseNumber},
+                    {key:"ppg", parser:YAHOO.util.DataSource.parseNumber},
+%if plainPos != 'g' and plainPos != 'd' :
+                    {key:"fog", parser:YAHOO.util.DataSource.parseNumber},
+%endif
+                    {key:"salary", parser:YAHOO.util.DataSource.parseNumber},
+                    {key:"age", parser:YAHOO.util.DataSource.parseNumber},
+%if pageName != 'Unsigned':
+                    {key:"ifhlteam"},
+%endif
+                    {key:"team"},
+            ]
+        };
+
+        this.myDataTable = new YAHOO.widget.DataTable("standings", myColumnDefs, this.myDataSource,
+                { sortedBy:{key:"${sortKey}",dir:"${sortDir}"}}
+        );
+    };
+});
+</script>
+%endif
+</head>
+<body class="yui-skin-sam">
+<div id="doc3" class="yui-t1">
+    <div id="hd">
+%if gp == -1 :
+        <h1>Top ${pageName} ${fancyPos}</h1>
+%else :
+        <h1>Top ${n} ${pageName} ${fancyPos} (>= ${gp} games played)</h1>
+%endif
+    </div>
+    <div id="bd">
+        <div id="yui-main">
+            <div class="yui-b">
+                <div id="standings">
+                    <table id="standtable">
+%if prefix == 'plain':
+                        <thead>
+                            <td>Player Name</td>
+                            <td>GP</td>
+                            <td>P</td>
+                            <td>${mainStat}</td>
+    %if plainPos != 'g' and plainPos != 'd' :
+                            <td>FOG</td>
+    %endif
+                            <td>Salary</td>
+                            <td>Age</td>
+    %if pageName != 'Unsigned' :
+                            <td>IFHL Team</td>
+    %endif
+                            <td>NHL Team</td>
+                        </thead>
+%endif
+%for player in players:
+                            <tr>
+    %if prefix != 'plain':
+                                <td>${player.GetSortName()}</td>
+    %endif
+                                <td>${player.GetLinkName(False,prefix,'../')}</td>
+                                <td>${player.gp}</td>
+                                <td>${player.p}</td>
+		%if plainPos == 'g' :
+                                <td>${round(player.gaa,2)}</td>
+		%else :
+                                <td>${round(player.ppg,2)}</td>
+            %if plainPos != 'd' :
+                                <td>${round(player.fog,2)}</td>
+            %endif
+		%endif
+    %if prefix == 'plain':
+                                <td>${player.salaryFancy}</td>
+    %else :
+                                <td>${player.salary}</td>
+    %endif
+                                <td>${player.age}</td>
+    %if pageName != 'Unsigned':
+        %if player.ifhlteam == 'unsigned':
+                                <td>Unsigned</td>
+        %else:
+                                <td><a href="../${prefix}teams/${player.ifhlteam}_main.html">${teamDict[player.ifhlteam].name}</a></td>
+        %endif
+    %endif
+    %if player.team in abbrevDict:
+                                <td><a href="http://sports.yahoo.com/nhl/teams/${abbrevDict[player.team]}">${player.team}</a></td>
+    %else:
+                                <td>${player.team}</td>
+    %endif
+                            </tr>
+%endfor
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="yui-b">
+            <a href="../${prefix}frontpage.html">Front Page</a>${spacer}
+            <hr>
+	%for currPlain, currFancy in positions:
+		%if currPlain != plainPos:
+            <a href="${currPlain}.html">
+		%endif
+            ${currFancy}
+		%if currPlain != plainPos:
+            </a>
+		%endif
+            ${spacer}
+	%endfor
+        </div>
+    </div>
+    <div id="ft">
+    </div>
+</div>
+</body>
+</html>

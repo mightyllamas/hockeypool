@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<title>${teamname} Roster Page</title>
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/reset/reset.css"> 
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/base/base.css"> 
+%if prefix != 'plain':
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/fonts/fonts.css"> 
+%if prefix != 'printable':
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/grids/grids.css"> 
+%endif
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/datatable/assets/skins/sam/datatable.css" >
+<style type="text/css">
+td.yui-dt-col-gp div { text-align: right }
+td.yui-dt-col-dgp div { text-align: right }
+td.yui-dt-col-P div { text-align: right }
+td.yui-dt-col-Salary div { text-align: right }
+td.yui-dt-col-PPG div { text-align: right }
+td.yui-dt-col-GAA div { text-align: right }
+td.yui-dt-col-Sv div { text-align: right }
+td.yui-dt-col-SO div { text-align: right }
+td.yui-dt-col-W div { text-align: right }
+td.yui-dt-col-Age div { text-align: right }
+td.yui-dt-col-PC div { text-align: right }
+td.yui-dt-col-GC div { text-align: right }
+td.yui-dt-col-FOG div { text-align: right }
+div.positive { color: #339933 }
+div.negative { color: #ff0000 }
+div.ghost { font-style: italic }
+%if prefix == 'printable':
+div.yui-dt {margin-bottom: 5px}
+body {font-size:85%}
+td {font-size:85%}
+thead {font-size:85%}
+%else :
+div.yui-dt {margin-bottom: 15px}
+%endif
+</style>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/element/element.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/datasource/datasource.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.8.0r4/build/datatable/datatable.js"></script>
+<script type="text/javascript" src="../js/utils.js"></script>
+<script type="text/javascript">
+function sortWithTotal( colName ) {
+    return function( a, b, desc ) {
+        if( a.getData("sortname") == "~" ) return 1;
+        if( b.getData("sortname") == "~" ) return -1;
+        return YAHOO.util.Sort.compare(a.getData(colName), b.getData(colName), desc);
+    };
+}
+function MakeLabel( x ) {
+    if( x[0] == 'd' ) return '+';
+    return x;
+}
+function IsStringColumn( x ) {
+    return x == "Team" || x[0] == '2' || x == "Winner" || x == "NHLPos" || x == "PAPos";
+}
+function GetFormatter( x ) {
+    if( x[0] == 'd' ) return formatDelta;
+    if( x == "Salary" ) return salaryFormat;
+    if( IsStringColumn( x ) ) return YAHOO.widget.DataTable.formatDefault;
+    if( x == "PPG" || x == "GAA" || x == "FOG" ) return fixedDigitFormat(2);
+    if( x == "Sv%" ) return fixedDigitFormat(3);
+    if( x == "PC" ) return fixedDigitFormat(1);
+    return YAHOO.widget.DataTable.formatNumber;
+}
+function GetParser( x ) {
+    if( IsStringColumn(x) ) return YAHOO.util.DataSource.parseString;
+    return YAHOO.util.DataSource.parseNumber;
+}
+function RosterTable( markName, tableName, statList, header, sortInfo ) {
+    var myColumnDefs = [
+        {key:"name",label:"<b>"+header+"</b>", sortable:true, sortOptions:{sortFunction:sortWithTotal("sortname")}},
+    ];
+    var myFields = [{key:"sortname"}, {key:"name"}
+    ];
+    for (var i = 0; i < statList.length; i++ )
+    {
+        myColumnDefs.push( {key:statList[i],label:MakeLabel(statList[i]),formatter:GetFormatter(statList[i]),sortable:statList[i][0]!='d', sortOptions:{sortFunction:sortWithTotal(statList[i])}} );
+        myFields.push( {key:statList[i], parser:GetParser(statList[i])} )
+    }
+    this.myDataSource = new YAHOO.util.DataSource(YAHOO.util.Dom.get(tableName));
+    this.myDataSource.responseType = YAHOO.util.DataSource.TYPE_HTMLTABLE;
+    this.myDataSource.responseSchema = { fields: myFields };
+    this.myDataTable = new YAHOO.widget.DataTable(markName, myColumnDefs, this.myDataSource,
+            { caption:"",
+              sortedBy:sortInfo }
+    );
+};
+YAHOO.util.Event.addListener(window, "load", function() {
+%for pos, fullPos in positions:
+    ${pos}Var = new RosterTable( "${pos}markup", "${pos}table", ${repr(posInfo[pos]['stats'])}, "${fullPos}", {key:"${posInfo[pos]['key']}",dir:"${posInfo[pos]['dir']}"} );
+%endfor
+});
+</script>
+%endif
+</head>
+<body class="yui-skin-sam">
+%if pool['UsesSalary'] :
+%if prefix == 'printable':
+<a href="../teams/${team.section}_${rosterType}.html"><b>${teamname}</b></a>${spacer}
+Cap room: ${team.remainFancy} ${spacer}
+Empty spots: ${team.emptySpots}
+<hr>
+%endif
+%endif
+%if rosterType != 'history' :
+<div id="doc3" class="yui-t1">
+%else :
+<div id="doc3" class="yui-t2">
+%endif
+    <div id="hd">
+%if prefix == 'plain' :
+        <h1>${teamname}</h1>
+%endif
+    </div>
+    <div id="bd">
+        <div id="yui-main">
+            <div class="yui-b">
+%for pos, fancyPos in positions:
+                <div id="${pos}markup">
+%if prefix == 'plain':
+                    <h2>${fancyPos}</h2>
+%endif
+                    <table id="${pos}table">
+%if prefix == 'plain':
+                        <thead><tr>
+                            <td>Player Name</td>
+    %for statName in posInfo[pos]['stats'] :
+                            <td>${statName}</td>
+    %endfor
+                        </tr></thead>
+%endif
+                        <tbody>
+    %for player in roster[pos]:
+                            <tr>
+    %if prefix != 'plain':
+                                <td>${player.GetSortName()}</td>
+    %endif
+    %if rosterType != 'history' :
+                                <td>${player.GetLinkName(True, prefix,'../')}</td>
+    %else:
+                                <td>${player.GetYahooLinkName(prefix)}</td>
+    %endif
+        %for statName in posInfo[pos]['stats'] :
+                                <td>${player.GetStat(statName, prefix)}</td>
+        %endfor
+                            </tr>
+    %endfor
+                        </tbody>
+                    </table>
+                </div>
+%endfor
+            </div>
+        </div>
+%if prefix != 'printable':
+        <div class="yui-b">
+%if rosterType != 'history' :
+%if prefix == '':
+    %if 'logo' in team.__dict__:
+            <img src="../${team.logo}" alt="${team.name}"
+        %if team.scalelogo:
+            width=160
+        %endif
+            >
+    %endif
+            <h2>${teamname}</h2>${spacer}
+            GM: ${team.gm}${spacer}
+%endif
+%if pool['UsesSalary'] :
+            Cap room: ${team.remainFancy}${spacer}
+%endif
+%if pool['MultiYearPool'] :
+            Empty spots: ${team.emptySpots}${spacer}
+%endif
+%if 'email1' in team.__dict__ :
+            Email: <a href="mailto:${team.email1}">${team.gm}</a>${spacer}
+%endif
+%if 'email2' in team.__dict__ :
+            Email: <a href="mailto:${team.email2}">${team.gm2}</a>${spacer}
+%endif
+%if pool['MultiYearPool'] :
+            <hr>
+            ${pool['PoolYear'] + 1} Contracts:${spacer}
+            Raises: $${"%.3f"%(team.contract['raises']/1000000)}M${spacer}
+            RFA: ${team.contract['RFA']}&nbsp;
+            UFA: ${team.contract['UFA']}${spacer}
+            Unknown: ${team.contract['unknown']}${spacer}
+%endif
+            <hr>
+%for otherRoster in otherRosters:
+            <a href="${team.section}_${otherRoster}.html">${otherRoster.capitalize()} Roster</a>${spacer}
+%endfor
+%if pool['MultiYearPool'] :
+            <a href="${team.section}_new.html">New Roster</a>${spacer}
+            <a href="../${prefix}history/${team.section}_2008.html">History Roster</a>${spacer}
+            <a href="../${prefix}news.html#${team.section}">News</a>${spacer}
+            <a href="../${prefix}draftbyteam.html#${team.section}">Draft Picks</a>${spacer}
+            <hr>
+%endif
+%for other in teams:
+    %if other.section != team.section:
+            <a href="${other.section}_${rosterType}.html">
+    %endif
+            ${other.name}
+    %if other.section != team.section:
+            </a>
+    %endif
+            ${spacer}
+%endfor
+            <hr>
+%else:
+            <h2>${teamname}</h2>
+            Rank: ${team['rank']}${spacer}
+            Points: ${round(team['points'],1)}${spacer}
+            <hr>
+%for other in teams:
+            ${other['rank']}.
+    %if other != team :
+            <a href="${other['shortname']}_${year}.html">${other['name']}</a>
+    %else :
+            ${other['name']}
+    %endif
+            ${round(other['points'],1)}${spacer}
+%endfor
+            <hr>
+%for other in years:
+    %if other != year:
+            <a href="${team['shortname']}_${other}.html">${other}</a>${spacer}
+    %endif
+%endfor
+            <hr>
+            <a href="../${prefix}teams/${team['shortname']}_main.html">Main Roster</a>${spacer}
+%endif
+            <a href="../${prefix}frontpage.html">Front Page</a>${spacer}
+%if prefix == 'plain' :
+            <a href="../teams/${team.section}_${rosterType}.html">Javascript Page</a>${spacer}
+%elif prefix == '':
+            <a href="../plainteams/${team.section}_${rosterType}.html">Non-Javascript Page</a>${spacer}
+            <a href="../printableteams/${team.section}_${rosterType}.html">Printable Page</a>${spacer}
+%endif
+        </div>
+%endif
+    </div>
+    <div id="ft">
+    </div>
+</div>
+
+</body>
+</html>

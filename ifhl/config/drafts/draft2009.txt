@@ -1,0 +1,57 @@
+brainstorm, claude giroux
+sleepers, steve mason
+ducks, bryan little
+experience, antti miettinen
+thunder, semyon varlamov
+rawmeat, tuomo ruutu
+thunder, michael frolik
+deadthings, ville leino
+ducks, pekka rinne
+redarmy, rene bourque
+llamas, kris versteeg
+gambit, chris mason
+thrill, tim thomas
+--
+brainstorm, victor hedman
+sleepers, kyle quincey
+bombers, matt duchene
+experience, james neal
+thunder, nikolai antropov
+rawmeat, travis zajac
+nashcity, evander kane
+deadthings, joe pavelski
+ducks, jonathan quick
+redarmy, matthew stajan
+llamas, t.j. oshie
+gambit, cody hodgson
+sleepers, marc-edouard vlasic
+--
+llamas, alex goligoski
+sleepers, justin abdelkader
+bombers, jamie benn
+experience, jared cowen
+thunder, erik karlsson
+llamas, viktor stalberg
+nashcity, alexandre burrows
+deadthings, nikolai khabibulin
+bombers, alexander edler
+redarmy, ryan kesler
+thrill, fabian brunnstrom
+gambit, matt gilroy
+bombers, vyacheslav kozlov
+--
+brainstorm, tuukka rask
+sleepers, david clarkson
+ducks, christian ehrhoff
+thunder, ryan callahan
+thrill, denis grebeshkov
+nashcity, david moss
+deadthings, jonas gustavsson
+bombers, jaroslav spacek
+redarmy, alexander auld
+thunder, curtis glencross
+gambit, ray emery
+thrill, sergei shirokov
+--
+ducks, oliver ekman-larsson
+nashcity, carlo colaiacovo

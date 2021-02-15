@@ -1,0 +1,55 @@
+rawmeat,Ryan Johansen
+deadthings,Ondrej Palat
+nashcity,Mark Arcobello
+sleepers,Reilly Smith
+experience,Michael Frolik
+thunder,John Gibson
+bombers,Mark Stone
+ducks,Andrei Burakovsky
+thrill,Nikita Kucherov
+gambit,Andrej Sekera
+bombers,Ryan Strome
+llamas,Sami Vatanen
+brainstorm,Patrick Maroon
+--
+rawmeat,Devante Smith-Pelly
+deadthings,Zack Kassian
+thrill,Matthew Nieto
+sleepers,Matt Beleskey
+experience,Jacob Trouba
+thunder,Frederik Anderson
+thrill,Johnny Boychuk
+ducks,Tanner Pearson
+brainstorm,Anthony Duclair
+gambit,Tomas Jurco
+bombers,Darcy Kuemper
+llamas,Brock Nelson
+nashcity,Olli Maatta
+-- 
+rawmeat,Aaron Ekblad
+deadthings,John Gaudreau
+nashcity,Colton Sceviour
+sleepers,Tommy Wingels
+experience,Dustin Tokarski
+thrill,Alex Steen
+redarmy,TJ Brodie
+bombers,Nikolaj Ehlers
+redarmy,Justin Abdelkader
+gambit,Alexandre Burrows
+bombers,Alex Stalock
+sleepers,Cam Talbot
+redarmy,Hampus Lindholm
+--
+rawmeat,Jake Allen
+deadthings,Jason Garrison
+nashcity,Tyler Bozak
+sleepers,Martin Jones
+thrill,Anthony Mantha
+ducks,Linden Vey
+gambit,Eric Gelinas
+bombers,Michael Dal Colle
+--
+deadthings,Emerson Etem
+nashcity,Gabriel Bourque
+thrill,Ryan Ellis
+gambit,Calle Jarnkrok

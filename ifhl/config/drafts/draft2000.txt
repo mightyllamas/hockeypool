@@ -1,0 +1,56 @@
+nashcity, scott gomez
+thunder,maxim afinogenov
+sleepers,brad isbister
+thrill, shane doan
+bombers, jan hlavac
+thunder, brian rafalski
+experience, andrew brunette
+redarmy, brenden morrow
+rawmeat, alex tanguay
+gambit, trevor letowski
+brainstorm, brian boucher
+brainstorm, simon gagne
+sleepers, jaroslav spacek
+--
+nashcity, todd rierden
+sleepers, yannick trembley
+sleepers, patrick lalime
+rawmeat, tim connelly
+bombers, sean hill
+llamas, jere karalahti
+experience, chris simon
+experience, alexander selivanov
+rawmeat, martin skoula
+thrill, steve mccarthy
+ducks,  marian gaborik
+gambit, martin biron
+llamas, igor larionov
+--
+nashcity, jose theodore
+deadthings, frantisek kaberle
+sleepers, bill muckalt
+deadthings, andrei markov
+bombers, oleg petrov
+ducks, dany heatley
+experience, marty turco
+redarmy, dennis shvidki
+thrill, david tanabe
+gambit, dmitri yushkevich
+redarmy, janne laukannen
+thrill, oleg saprykin
+thunder, nikolai antropov
+--
+nashcity, petr buzek
+brainstorm, peter schaefer
+thrill, martin havlat
+bombers, jean-sebastien aubin
+deadthings, robert lang
+redarmy, christian matte
+rawmeat, michal handzus
+gambit, dave andreychuk
+thunder, trevor kidd
+nashcity, andy delmore
+deadthings, fred brathwaite
+redarmy, sheldon keefe
+nashcity, bates battaglia
+

@@ -1,0 +1,23 @@
+copy over old data on website (including editing history links)
+edit config/pool.py
+- PoolYear
+- PrevYears
+- Started
+- FixPositions
+update teams.ini for picks, awards, lastyear
+edit teams to fix up traded players
+hp --newseason
+hp --team
+change minimum salary in pool.py
+hp -fs capfriendly nhl
+
+do the hockey pool draft!
+edit config/pool.py
+- FixPositions = True
+- Started = True
+change years in fetcher.py for nhl, nhlbio, schedule
+hp -fs schedule
+hp -fs nhlbio
+hp --startseason
+
+

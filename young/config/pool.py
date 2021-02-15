@@ -1,0 +1,10 @@
+PoolName = 'Young Guns'
+RuleSet = 'young'
+StatSource = 'yahoo'
+UsesSalary = False
+RegularSeason= True
+UsesSchedule = True
+MultiYearPool = False
+PoolYear = 2016
+Started = True
+FixPositions = False

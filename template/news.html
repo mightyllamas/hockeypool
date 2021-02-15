@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<title>IFHL Hockey Pool News</title>
+</head>
+<body>
+    <h2>News for the past month</h2>
+    <dl>
+%for log in logs:
+        <dt><a name="${log[0]}"
+    %if log[0] != 'general':
+            href="${prefix}teams/${log[0]}_main.html"
+    %endif
+        >${teamDict[log[0]]}</a></dt>
+        <dd>
+    %if log[1] == [] :
+            <b>No news in the past month</b>
+    %else :
+        %for entry in log[1] :
+            <b>${entry[0].isoformat()}:</b>
+            <ul>
+            %for item in entry[1] :
+                <li>${item}</li>
+            %endfor
+            </ul>
+        %endfor
+    %endif
+        </dd>
+%endfor
+    </dl>
+    <hr>
+    <div>
+        <a href="${prefix}frontpage.html">Front Page</a>
+    </div>
+</body>
+</html>

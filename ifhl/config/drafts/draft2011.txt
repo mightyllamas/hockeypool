@@ -1,0 +1,52 @@
+gambit, Michael Grabner
+sleepers, Logan Couture
+experience, Gabriel Landeskog
+nashcity, Ryan Nugent-Hopkins
+brainstorm, ryan callahan
+deadthings, cory schneider
+ducks, teddy purcell
+rawmeat, kevin shattenkirk
+thunder, joe corvo
+redarmy, andrew macdonald
+gambit, mikhail grabovski
+bombers, max pacioretty
+llamas, adam larsson
+--
+gambit, clarke macarthur
+sleepers, jake gardiner
+experience, linus omark
+nashcity, sergei kostitsyn
+brainstorm, nino niederreiter
+deadthings, patrik berglund
+ducks, ryan johansen
+rawmeat, david rundblad
+thunder, travis hamonic
+redarmy, brayden schenn
+rawmeat, mattias tedenby
+bombers, rj umberger
+llamas, zac dalpe
+--
+gambit, mark giordano
+sleepers, pa parenteau
+experience, matt d'agostini
+nashcity, lauri korpikoski
+brainstorm, jonathan huberdeau
+deadthings, erik gudbranson
+ducks, jaromir jagr
+thunder, mats zuccarello-aasen
+thunder, ryan ellis
+thrill, brett connolly
+thrill, jonathon blum
+bombers, david savard
+gambit, corey crawford
+--
+gambit, erik cole
+sleepers, tyler kennedy
+experience, james reimer
+nashcity, brian boucher
+deadthings, vladimir tarasenko
+ducks, derek stepan
+gambit, bobby butler
+--
+nashcity, colin greening
+thunder, grant clitsome

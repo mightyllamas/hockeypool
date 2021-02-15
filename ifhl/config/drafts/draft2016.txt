@@ -1,0 +1,63 @@
+nashcity, Patrik Laine 
+experience, Auston Matthews 
+gambit, Dylan Strome 
+rawmeat, William Nylander-Altelius
+redarmy, Leon Draisaitl 
+sleepers, Joonas Donskoi 
+thunder, Jesse Puljujarvi 
+ducks, Shayne Gostisbehere 
+thrill, Mike Hoffman 
+brainstorm, Colton Parayko 
+deadthings, Rasmus Ristolainen 
+llamas, Mitchell Marner 
+bombers, Ivan Provorov 
+--
+nashcity, Andrei Vasilevskiy 
+experience, Kyle Palmieri 
+gambit, Mikko Rantanen 
+rawmeat, Sebastian Aho 
+redarmy, Alexander Wennberg 
+sleepers, Pierre-Luc Dubois 
+thunder, Alexander Radulov 
+ducks, Lawson Crouse 
+thrill, Robert Fabbri 
+brainstorm, Michael Matheson 
+deadthings, Matthew Murray 
+llamas, Connor Hellebucyk 
+bombers, Sean Couturier 
+--
+nashcity, Kyle Connor 
+experience, Brock Nelson 
+gambit, Nicholas Ritchie 
+rawmeat, Matthew Tkachuk 
+redarmy, Devante Smith-Pelly 
+sleepers, Mattias Ekholm 
+thunder, Pavel Buchnevich 
+ducks, Nikita Igorjevic Zaitsev (Zajeev)
+rawmeat, Christian Dvorak 
+thrill, Vincent Trocheck 
+deadthings, Oskar Klefbom 
+llamas, Cam Talbot 
+bombers, Jimmy Vesey 
+--
+nashcity, Kevin Fiala 
+experience, Mikhail Sergachev 
+gambit, Ben Hutton 
+rawmeat, Alexander Nylander-Altelius
+sleepers, Esa Lindell 
+ducks, Michael Frolik 
+thrill, Marc-Edouard Vlasic 
+brainstorm, Bo Horvat 
+deadthings, Connor Brown 
+--
+nashcity, Zachary Werenski 
+experience, James Reimer 
+gambit, Nick Schmaltz  
+rawmeat, Robin Lehner 
+sleepers, Andreas Athanasiou 
+ducks, Travis Konecny 
+--
+nashcity, Ryan Murray 
+gambit, Olli Juolevi 
+--
+nashcity, Craig Smith 

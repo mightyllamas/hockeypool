@@ -1,0 +1,47 @@
+Rewrite ideas:
+- leave initial harness, fetching and scraping in python/BeautifulSoup
+-- change scrapers to emit json, not python
+-- convert to python3
+- replace webwriter and joiner with new tech stack based on go/protobuf
+- output of webwriter should be json, and normally only rebuild json for current year.   Rebuild previous year optional if json schema change
+- new site templates are javascripted pages that ingest the json and display it.
+
+Need to come up with some kind of schema that can represent draft picks, trades, player changes over time, etc.
+
+
+Bugs:
+- smallpuck not counting on goalie line of team points stats page.
+- bug in allplayers.html with position switches
+- schedule fetching not automatic
+
+TODO
+- support maxPage in NHLPA scanning
+
+
+- make year of current page in history roster appear without a link
+- integrate recent years into history roster.
+- pull draft information out of ifhl v2 database dump
+- pull trade information out of ifhl v2 database dump
+- put in a mechanism for recording trade information in new database, so we don't lose them all again.
+- get some backup birthdate information in somehow (old PA?  nhlnumbers?)
+- put in a basic daily wrapper that mails status
+- mail out daily logs to myself
+
+- parse NHL TOI reports
+http://www.nhl.com/ice/app?service=page&page=playerstats&fetchKey=20102ALLAASAll&viewName=timeOnIce&sort=timeOnIce&pg=2
+
+- change player.ini to a manually run thing, and make the player info database more official.   Preserve player info!
+- refactor css utility functions, make as much external as possible.
+
+- improve predictions:
+  - after a trade & 5 gp, use player stats post-trade for ppg and gp
+  - predicted roster shows smallpuck and plumbers
+  - manual entry for out for season.
+  - rookie rule - player age <21 & gp <=8 & recent games missed > 5, don't count.
+- delta in totals column of score roster, so you can see how many games over/under you are
+- remove old mailer stuff, and replace with local mailing since baron has that.
+
+Speedops:
+- add an Expires header
+- put scripts at the bottom. (why?)
+- minify javascript

@@ -1,0 +1,10 @@
+{'round1':
+    [('nyr',4,'phi',3),('mon',4,'tam',0),('det',1,'bos',4),('pit',4,'cob',2),
+     ('san',3,'los',4),('ana',4,'dal',2),('stl',2,'chi',4),('min',4,'col',3)],
+'round2':
+    [('los',4,'ana',3),('chi',4,'min',2),('bos',3,'mon',4),('nyr',4,'pit',3)],
+'round3':
+    [('los',4,'chi',3),('nyr',4,'mon',2)],
+'round4':
+    [('los',3,'nyr',1)],
+}

@@ -1,0 +1,9 @@
+PoolName = 'NLG Playoff'
+RuleSet = 'boxpool'
+StatSource = 'playoffs'
+UsesSalary = False
+UsesSchedule = False
+RegularSeason = False
+MultiYearPool = False
+PoolYear = 2019
+Started = True
