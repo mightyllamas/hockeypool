@@ -9,6 +9,7 @@ import util
 MakoModuleDir = 'data/mako_modules'
 MainDir = os.path.dirname(os.path.dirname(sys.argv[0]))
 SiteDir = 'site/'
+YUI = 'www.dreadfest.com/yui'
 
 def Init() :
     util.Mkdir( MakoModuleDir )
@@ -24,6 +25,7 @@ def DoTemplateSubstitution( templateName, pageName, args, doPlain=True, doPrinta
         try :
             args['prefix'] = prefix
             args['spacer'] = spacer
+            args['YUI'] = YUI
             frontTemplate = Template( filename=os.path.abspath(MainDir+'/template/' + templateName), module_directory=MakoModuleDir )
             tmpFile = StringIO.StringIO()
             context = Context(tmpFile, **args )

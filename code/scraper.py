@@ -182,22 +182,20 @@ def ScrapeCapFriendly( fName ) :
                     entryLen = len(entry.contents)
                     if entryLen == 0 :
                         val = ''
-                        capVal = ''
                     elif entryLen == 1 :
                         div = entry.div
                         if len(div.contents) == 1 :
                             val = div.string
                         else :
                             val = div.find(text=True)
-                        capVal = val
                     else :
-                        def GetSalaryValue( what ) :
-                            value = what.contents[0].string
-                            value = value.strip()
-                            value = value.replace('$','')
-                            value = value.replace(',','')
-                            return value
-                        val = GetSalaryValue( entry.contents[0] )
+                        what = entry.contents[0].contents[0].string
+                        if what :
+                            val = what.strip()
+                            val = val.replace('$','')
+                            val = val.replace(',','')
+                        else :
+                            val = ''
                     contract.append( val )
                 dataDict['contract'] = contract
                 dataDict['team'] = team
