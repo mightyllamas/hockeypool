@@ -224,7 +224,7 @@ def CalculateDailyData( prevState, totalData ) :
 
     for name, data in totalData.iteritems() :
         if name not in oldTotal :
-            if  data['gamesplayed'] > 2 and pool.Started :
+            if  data['gamesplayed'] > 3 and pool.Started :
                 WriteLogFile( 'data anomaly for %s.  Checking if NHL changed the name' % name )
                 matchedName = GetNameMatcher().FindMatchingName( name, oldTotal )
                 if not matchedName :

@@ -161,9 +161,15 @@ def ScrapeCapFriendly( fName ) :
                 name = name.encode('ascii', 'ignore')
                 name = name.replace( '&#39;', "'" )
                 name = FixSpecialCharacters(name)
-                splitName = name.split( ',' )
-                if len(splitName) != 2 :
-                    raise Exception( "found an unexpected name format.  Want comma separated. name %s, team %s".format(name,team)  )
+                if mode == ParseMode.Retained :
+                    splitName = name.split( ' ' )
+                    if len(splitName) != 2 :
+                        raise Exception( "found an unexpected name format.  Want space separated. name %s, team %s".format(name,team)  )
+                    splitName.reverse()
+                else:
+                    splitName = name.split( ','  )
+                    if len(splitName) != 2 :
+                        raise Exception( "found an unexpected name format.  Want comma separated. name %s, team %s".format(name,team)  )
                 lastName, firstName = splitName
                 if dataDict['capgeeklink'].endswith( 'aho1' ) :
                     lastName = 'Aho-D'
@@ -173,11 +179,12 @@ def ScrapeCapFriendly( fName ) :
                 dataDict['name'] = newName
                 dataDict['keyname'] = dataDict['name'].lower()
                 contract = []
-                if len(entries[5]) > 0 :
-                    dateStr = entries[5].span['title']
+                if mode != ParseMode.Retained  and len(entries[5]) > 0 :
+                    dateStr = entries[6].span['title']
                     parsedDate = time.strptime( dateStr, '%b %d, %Y' )
                     dataDict['birthdate'] = datetime.date(parsedDate[0], parsedDate[1], parsedDate[2])
-                for year in range(7,13) :
+                rangeDelta = 4 if mode == ParseMode.Retained else 0
+                for year in range(8 - rangeDelta,13 - rangeDelta) :
                     entry = entries[year]
                     entryLen = len(entry.contents)
                     if entryLen == 0 :
@@ -186,10 +193,16 @@ def ScrapeCapFriendly( fName ) :
                         div = entry.div
                         if len(div.contents) == 1 :
                             val = div.string
+                            if val == None:
+                                val = div.span.string
                         else :
                             val = div.find(text=True)
                     else :
-                        what = entry.contents[0].contents[0].string
+                        what = entry.contents[0]
+                        if len(what.contents) == 0 :
+                            what = what.string
+                        else :
+                            what = what.contents[0].string
                         if what :
                             val = what.strip()
                             val = val.replace('$','')

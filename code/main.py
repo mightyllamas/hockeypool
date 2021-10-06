@@ -141,26 +141,25 @@ def FixContract( x ) :
     return  val
         
 
-if 0 :
+if 1 :
 	def Patch() :
-		prevState = UnpickleData( 'prevstate' )
+		prevState = UnpickleData( 'poolstate' )
 		playerDict = prevState['playerDict']
-		del playerDict['ernest (cameron) schilling']
-		del playerDict['ernsest (cameron) schilling']
-		PickleData( prevState, 'prevstate' )
-
-def Patch() :
-	prevState = UnpickleData( 'prevstate' )
-	newDaily = []
-	dailyData = prevState['dailydata']
-	for datetime, day in dailyData :
-		newDay = {}
-		for playerName, playerDict in day.items() :
-			if 'saves' not in playerDict :
-				newDay[playerName] = playerDict
-		newDaily.append( (datetime, newDay) )
-	prevState['dailydata'] = newDaily
-	PickleData( prevState, 'prevstate' )
+		del playerDict['quintin hughes']
+		PickleData( prevState, 'poolstate' )
+if 0 :
+    def Patch() :
+        prevState = UnpickleData( 'prevstate' )
+        newDaily = []
+        dailyData = prevState['dailydata']
+        for datetime, day in dailyData :
+            newDay = {}
+            for playerName, playerDict in day.items() :
+                if 'saves' not in playerDict :
+                    newDay[playerName] = playerDict
+            newDaily.append( (datetime, newDay) )
+        prevState['dailydata'] = newDaily
+        PickleData( prevState, 'prevstate' )
     
 
 def PrintRaw( args ) :

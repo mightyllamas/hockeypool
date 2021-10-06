@@ -42,6 +42,7 @@ TeamNames = [
 ('san', 'San Jose Sharks', 'Sharks', 41, 'San Jose','sjs',True,28,'sjs'),
 ('wpg', 'Winnipeg Jets', 'Jets', 1798, 'Winnipeg', 'wpg', True,52,'wpg'),
 ('vgk', 'Vegas Golden Knights', 'Golden Knights', 1799, 'Vegas', 'vgk', True, 54, 'vgk'),
+('sea', 'Seattle Kraken', 'Kraken', 2112, 'Seattle', 'sea', True, 55, 'sea'),
 ]
 
 def ActiveTeamNames() :
@@ -112,7 +113,11 @@ def Mkdir( dir ) :
 
 digitStart = re.compile('[-0-9.]+$')
 def IsNumeric( val ) :
-    return re.match( digitStart, val )
+    try :
+        return re.match( digitStart, val )
+    except: 
+        print( val )
+        raise
 
 def ConvertTuple( x ) :
     if IsNumeric( x[1] ) :
@@ -148,6 +153,8 @@ def AllOwnedPlayers() :
 def CalcGamesCounting( schedule, theDate ) :
     if not pool.Started: 
         return 0, 0
+    if 1 :
+        return 56, 56           # covid hack
     totalGames = len(schedule)
     totalPlayed = sum( 1 for x in schedule if x[0] < theDate )
     fracGames = float(totalPlayed) / float(totalGames) * (totalGames * 2 / 31)

@@ -68,14 +68,13 @@ def FetchSchedule( dirName ) :
 # http://www.nhl.com/stats/rest/goalies?isAggregate=false&reportType=goalie_basic&isGame=false&reportName=goaliesummary&sort=[{%22property%22:%22wins%22,%22direction%22:%22DESC%22}]&cayenneExp=gameTypeId=3%20and%20seasonId%3E=20172018%20and%20seasonId%3C=20172018
 
 def FetchPlayoffs( dirName ) :
-	util.ExecCommand( "wget -O %s/skaters0.json -a %s 'https://api.nhle.com/stats/rest/en/skater/summary?isAggregate=false&isGame=false&start=0&limit=100&cayenneExp=seasonId=20192020%%20and%%20gameTypeId=3'" % (dirName, FetchLogName) )
-	util.ExecCommand( "wget -O %s/skaters1.json -a %s 'https://api.nhle.com/stats/rest/en/skater/summary?isAggregate=false&isGame=false&start=100&limit=100&cayenneExp=seasonId=20192020%%20and%%20gameTypeId=3'" % (dirName, FetchLogName) )
-	util.ExecCommand( "wget -O %s/skaters2.json -a %s 'https://api.nhle.com/stats/rest/en/skater/summary?isAggregate=false&isGame=false&start=200&limit=100&cayenneExp=seasonId=20192020%%20and%%20gameTypeId=3'" % (dirName, FetchLogName) )
-	util.ExecCommand( "wget -O %s/skaters3.json -a %s 'https://api.nhle.com/stats/rest/en/skater/summary?isAggregate=false&isGame=false&start=300&limit=100&cayenneExp=seasonId=20192020%%20and%%20gameTypeId=3'" % (dirName, FetchLogName) )
-	util.ExecCommand( "wget -O %s/skaters4.json -a %s 'https://api.nhle.com/stats/rest/en/skater/summary?isAggregate=false&isGame=false&start=400&limit=100&cayenneExp=seasonId=20192020%%20and%%20gameTypeId=3'" % (dirName, FetchLogName) )
-	util.ExecCommand( "wget -O %s/skaters5.json -a %s 'https://api.nhle.com/stats/rest/en/skater/summary?isAggregate=false&isGame=false&start=500&limit=100&cayenneExp=seasonId=20192020%%20and%%20gameTypeId=3'" % (dirName, FetchLogName) )
-	#util.ExecCommand( "wget -O %s/nhl_goalies.json -a %s 'http://api.nhle.com/stats/rest/en/goalie/summary?isAggregate=false&isGame=false&limit=100&cayenneExp=seasonId=20192020%%20and%%20gameTypeId=2'" % (dirName, FetchLogName) )
-	util.ExecCommand( "wget -O %s/goalies.json -a %s 'http://api.nhle.com/stats/rest/en/goalie/summary?isAggregate=false&reportType=goalie_basic&isGame=false&reportName=goaliesummary&cayenneExp=seasonId=20192020%%20and%%20gameTypeId=3'" % (dirName, FetchLogName) )
+	util.ExecCommand( "wget -O %s/skaters0.json -a %s 'https://api.nhle.com/stats/rest/en/skater/summary?isAggregate=false&isGame=false&start=0&limit=100&cayenneExp=seasonId=20202021%%20and%%20gameTypeId=3'" % (dirName, FetchLogName) )
+	util.ExecCommand( "wget -O %s/skaters1.json -a %s 'https://api.nhle.com/stats/rest/en/skater/summary?isAggregate=false&isGame=false&start=100&limit=100&cayenneExp=seasonId=20202021%%20and%%20gameTypeId=3'" % (dirName, FetchLogName) )
+	util.ExecCommand( "wget -O %s/skaters2.json -a %s 'https://api.nhle.com/stats/rest/en/skater/summary?isAggregate=false&isGame=false&start=200&limit=100&cayenneExp=seasonId=20202021%%20and%%20gameTypeId=3'" % (dirName, FetchLogName) )
+	util.ExecCommand( "wget -O %s/skaters3.json -a %s 'https://api.nhle.com/stats/rest/en/skater/summary?isAggregate=false&isGame=false&start=300&limit=100&cayenneExp=seasonId=20202021%%20and%%20gameTypeId=3'" % (dirName, FetchLogName) )
+	util.ExecCommand( "wget -O %s/skaters4.json -a %s 'https://api.nhle.com/stats/rest/en/skater/summary?isAggregate=false&isGame=false&start=400&limit=100&cayenneExp=seasonId=20202021%%20and%%20gameTypeId=3'" % (dirName, FetchLogName) )
+	util.ExecCommand( "wget -O %s/skaters5.json -a %s 'https://api.nhle.com/stats/rest/en/skater/summary?isAggregate=false&isGame=false&start=500&limit=100&cayenneExp=seasonId=20202021%%20and%%20gameTypeId=3'" % (dirName, FetchLogName) )
+	util.ExecCommand( "wget -O %s/goalies.json -a %s 'http://api.nhle.com/stats/rest/en/goalie/summary?isAggregate=false&reportType=goalie_basic&isGame=false&reportName=goaliesummary&cayenneExp=seasonId=20202021%%20and%%20gameTypeId=3'" % (dirName, FetchLogName) )
 
 # http://nhlnumbers.com/team-salaries/chicago-blackhawks-salary-cap/
 
