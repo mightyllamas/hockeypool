@@ -1,0 +1,57 @@
+sleepers,Cole Caufield
+thunder,Jamie Drysdale
+deadthings,Philipp Grubauer
+experience,Eeli Tolvanen
+gambit,Vincent Trocheck
+thrill,Marco Rossi
+ducks,Owen Power
+bombers,Arthur Kaliyev
+redarmy,Noah Dobson
+rawmeat,Moritz Seider
+nashcity,Jared McCann
+brainstorm,William Eklund
+llamas,Oliver Wahlstrom
+--
+sleepers,Carter Verhaeghe
+thunder,Spencer Knight
+deadthings,Alex Nedeljkovic
+experience,Zach Hyman
+rawmeat,Alex Newhook
+thrill,Evan Bouchard
+llamas,Jeff Petry
+bombers,Jeremy Swayman
+thrill,Linus Ullmark
+rawmeat,Mackenzie Weegar
+nashcity, Nils Lundkvist
+brainstorm,Rasmus Sandin
+brainstorm,Laurent Brossoit
+--
+sleepers, Jordan Kyrou
+thunder, Matthew Boldy
+deadthings, Luke Hughes
+experience, Marc-Andre Fleury
+gambit, Rasmus Andersson
+sleepers, Wyatt Kalynuk
+bombers, Alex Tuch
+llamas, Janne Kuokannen
+redarmy, Andrew Mangiapane
+thrill, Christian Dvorak
+nashcity, Ilya Mikheyev
+sleepers, Petr Mrazek
+llamas, Kaapo Kahkonen
+--
+sleepers, Sebastian Aho-D
+thunder, Jake Sanderson
+deadthings, Mason McTavish
+gambit, Alec Martinez
+sleepers, Vitek Vanecek
+bombers, Matt Grzelyck
+thrill, Alex Killorn
+bombers, Calen Addison
+--
+sleepers, Jake Oettinger
+thunder, Matt Beniers
+deadthings, Nicolas Hague
+bombers, Mathieu Joseph
+redarmy, Jack Roslovic
+gambit, Michael Bunting

@@ -16,6 +16,7 @@ edit config/pool.py
 - FixPositions = True
 - Started = True
 change years in fetcher.py for nhl, nhlbio, schedule
+add new draft picks in teams.ini
 hp -fs schedule
 hp -fs nhlbio
 hp --startseason

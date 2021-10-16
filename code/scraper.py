@@ -209,7 +209,7 @@ def ScrapeCapFriendly( fName ) :
                             val = val.replace(',','')
                         else :
                             val = ''
-                    contract.append( val )
+                    contract.append( val.encode('utf-8') )
                 dataDict['contract'] = contract
                 dataDict['team'] = team
                 dataDict['active'] = mode == ParseMode.Active

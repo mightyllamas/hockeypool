@@ -153,8 +153,6 @@ def AllOwnedPlayers() :
 def CalcGamesCounting( schedule, theDate ) :
     if not pool.Started: 
         return 0, 0
-    if 1 :
-        return 56, 56           # covid hack
     totalGames = len(schedule)
     totalPlayed = sum( 1 for x in schedule if x[0] < theDate )
     fracGames = float(totalPlayed) / float(totalGames) * (totalGames * 2 / 31)

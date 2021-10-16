@@ -150,7 +150,11 @@ class TeamInfo :
                     for x in util.StatsFields :
                         fullStats[x] += stats[x]
                     lastGame = max( lastGame, earlyGame )
-            info = player.PlayerInfo( playerDict, stats, lastStats )
+            try :
+                info = player.PlayerInfo( playerDict, stats, lastStats )
+            except :
+                print( 'problem with %s - add name=Joe Smallpuck to players.ini?' % playerName )
+                raise
             pos = playerDict['position']
             if not pos : 
                 print( playerDict )
