@@ -9,6 +9,7 @@ edit teams to fix up traded players
 hp --newseason
 hp --team
 change minimum salary in pool.py
+change pool salary in pool.py 
 hp -fs capfriendly nhl
 
 do the hockey pool draft!

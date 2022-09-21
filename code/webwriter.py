@@ -772,7 +772,7 @@ def GenerateSite( dataDict, prevState, teamData, schedule, totalData, dailyData,
         subsDict['fracGames'] = fracGames
     cap = 0
     if pool.UsesSalary :
-        cap = 81500000 * 1.4
+        cap = 82500000 * 1.4
         subsDict['cap'] = util.Money(cap)
     teamList, smallPuck = MakeTeamList( teamData, dataDict, dailyData, prevState['totaldata'], schedule, cap, gamesCounting )
     teamDict = dict( (team.section, team) for team in teamList )

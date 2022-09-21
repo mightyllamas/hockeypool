@@ -228,8 +228,16 @@ def CalculateDailyData( prevState, totalData ) :
                 WriteLogFile( 'data anomaly for %s.  Checking if NHL changed the name' % name )
                 matchedName = GetNameMatcher().FindMatchingName( name, oldTotal )
                 if not matchedName :
-                    if name.endswith( 'aho-d' ) :
-                        entries[name] = dict( (x, data[x]) for x in util.StatsFields if x in data )
+                    if name.endswith('brossoit') or name.endswith('lehner') or name == 'mike smith' or name == 'stuart skinner' or name.endswith('koskinen') or name == 'andrew hammond' or name == 'tuukka rask' or name.endswith('berube') :
+                        # entries[name] = dict( (x, data[x]) for x in util.StatsFields if x in data )
+                        totalStats = dict( (x,0) for x in util.StatsFields )
+                        for day, stats in dailyData :
+                            if name in stats :
+                                currDay = stats[name]
+                                for x in util.StatsFields :
+                                   if x in currDay :
+                                        totalStats[x] += currDay[x]
+                        UpdateStats( totalStats, data, name )
                         continue
                     print 'daily games anomaly for %s - please investigate' % name
                     sys.exit(1)

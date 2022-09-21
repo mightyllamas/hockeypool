@@ -10,6 +10,7 @@ import BeautifulSoup
 import util
 import pool
 import pprint
+import fetcher
 
 
 def ReadFile( fName ) :
@@ -181,9 +182,10 @@ def ScrapeCapFriendly( fName ) :
                 contract = []
                 if mode != ParseMode.Retained  and len(entries[5]) > 0 :
                     dateStr = entries[6].span['title']
+                    dateStr = dateStr.replace( '.', '' )
                     parsedDate = time.strptime( dateStr, '%b %d, %Y' )
                     dataDict['birthdate'] = datetime.date(parsedDate[0], parsedDate[1], parsedDate[2])
-                rangeDelta = 4 if mode == ParseMode.Retained else 0
+                rangeDelta = 5 if mode == ParseMode.Retained else 0
                 for year in range(8 - rangeDelta,13 - rangeDelta) :
                     entry = entries[year]
                     entryLen = len(entry.contents)
@@ -237,8 +239,14 @@ def PostProcessCapFriendly( dataList ) :
             player = playerLookup[r['name']]
             contract = player['contract']
             for index, val in enumerate(r['contract']) :
-                if util.IsNumeric( val ) :
-                    contract[index] = str(int(contract[index]) + int(val))
+                if util.IsNumeric( val ) and util.IsNumeric(contract[index]) :
+                    try :
+                        contract[index] = str(int(contract[index]) + int(val))
+                    except :
+                        print( contract[index] )
+                        print( val )
+                        print( r['name'] )
+                        raise
     return players
 
 def ScrapeNHLNumbers( fName ) :

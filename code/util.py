@@ -45,6 +45,8 @@ TeamNames = [
 ('sea', 'Seattle Kraken', 'Kraken', 2112, 'Seattle', 'sea', True, 55, 'sea'),
 ]
 
+NumNHLTeams = 32
+
 def ActiveTeamNames() :
     return (x for x in TeamNames if x[6])
 
@@ -155,14 +157,14 @@ def CalcGamesCounting( schedule, theDate ) :
         return 0, 0
     totalGames = len(schedule)
     totalPlayed = sum( 1 for x in schedule if x[0] < theDate )
-    fracGames = float(totalPlayed) / float(totalGames) * (totalGames * 2 / 31)
+    fracGames = float(totalPlayed) / float(totalGames) * (totalGames * 2 / NumNHLTeams)
     return max(1,int(fracGames)), fracGames
 
 
 def SeasonLength( schedule ) :
     if not pool.Started :
         return 82
-    return len(schedule) * 2 / 31
+    return len(schedule) * 2 / NumNHLTeams
 
 
 def ParseDate( x ) :

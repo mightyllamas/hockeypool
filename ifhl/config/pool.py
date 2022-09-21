@@ -5,8 +5,8 @@ UsesSalary = True
 RegularSeason = True
 UsesSchedule = True
 MultiYearPool = True
-PoolYear = 2022
-PrevYears = 13
-Started = True
-FixPositions = True
+PoolYear = 2023
+PrevYears = 14
+Started = False
+FixPositions = False
 

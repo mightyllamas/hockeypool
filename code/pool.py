@@ -6,4 +6,4 @@ def GetDraftYear() :
 def GetStatsYear() :
     return PoolYear + Started - 1
 
-MinimumSalary = 700000
+MinimumSalary = 775000
