@@ -1,0 +1,52 @@
+sleepers, Anton Lundell
+experience, Valeri Nichushkin
+deadthings, Juraj Slafkovsky
+bombers, Kent Johnson
+thrill, Seth Jarvis
+redarmy, Evander Kane
+nashcity, Tage Thompson
+gambit, Mason Marchment
+llamas, Brandon Hagel
+ducks, Ryan Hartman
+thunder, Josh Anderson
+rawmeat, Logan Thompson
+brainstorm, Alexandar Georgiev
+--
+sleepers, Keegan Kolesar
+experience, Linus Ullmark
+deadthings, Noah Hanifin
+bombers, Brandt Clarke
+thrill, Erik Brannstrom
+redarmy, Kaiden Guhle
+nashcity, Marc-Andre Fleury
+gambit, Gustav Forsling
+redarmy, Lukas Reichel
+ducks, Dylan Guenther
+thunder, Kevin Labanc
+brainstorm, Andrei Kuzmenko
+rawmeat, Dylan Holloway
+--
+sleepers, Sean Durzi
+deadthings, Brady Skjei
+thrill, Shane Wright
+rawmeat, Nicholas Robertson
+redarmy, Simon Nemec
+gambit, Jared Spurgeon
+llamas, Matt Murray
+brainstorm, Lawson Crouse
+--
+sleepers, Pavel Francouz
+deadthings, Kasperi Kapanen
+bombers, Jeff Skinner
+thrill, Artturi Lehkonen
+gambit, Matt Duchene
+--
+deadthings, Ville Husso
+bombers, Nick Schmaltz
+gambit, Charlie Lindgren
+--
+deadthings, Zach Whitecloud
+--
+bombers, Justin Faulk
+--
+bombers, Adrian Kempe
