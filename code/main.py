@@ -102,7 +102,7 @@ def ProcessHTML( args ) :
 def JoinData() :
     print 'Joining Data'
     statsYear = pool.GetStatsYear()
-    statList = UnpickleData( pool.StatSource, statsYear )
+    statList = UnpickleData( pool.StatSource ) # , statsYear )
     totalData = joiner.WeldGameData( statList )
     prevState = UnpickleData( 'prevstate' )
     if pool.RegularSeason :

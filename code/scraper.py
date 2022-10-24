@@ -492,12 +492,18 @@ def ScrapeNHLBio( fName ) :
     stuff = json.loads( ReadFile( fName ) ) 
     result = [dict((str(k),v) for k,v in x.iteritems()) for x in stuff['data']]
     for player in result :
-        birthDate = [int(x) for x in player['playerBirthDate'].split('-')]
+        birthDate = [int(x) for x in player['birthDate'].split('-')]
         player['birthdate'] = datetime.date(birthDate[0], birthDate[1], birthDate[2])
         for key in ['gamesPlayed', 'goals', 'points', 'seasonId', 'assists',
                     'playerFirstName','playerLastName','playerBirthDate',
                     'losses','otLosses','ties','wins'] :
             player.pop( key, None )
+        if 'skaterFullName' in player:
+            player['playerName'] = player['skaterFullName']
+            player.pop( 'skaterFullName' )
+        else :
+            player['playerName'] = player['goalieFullName']
+            player.pop( 'goalieFullName' )
     return result
 
 ScrapeFuncDict = {
