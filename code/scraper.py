@@ -162,7 +162,7 @@ def ScrapeCapFriendly( fName ) :
                 name = name.encode('ascii', 'ignore')
                 name = name.replace( '&#39;', "'" )
                 name = FixSpecialCharacters(name)
-                if mode == ParseMode.Retained :
+                if 0:   # mode == ParseMode.Retained :		Retained now matches regular
                     splitName = name.split( ' ' )
                     if len(splitName) != 2 :
                         raise Exception( "found an unexpected name format.  Want space separated. name %s, team %s".format(name,team)  )
@@ -176,6 +176,8 @@ def ScrapeCapFriendly( fName ) :
                     lastName = 'Aho-D'
                 elif dataDict['capgeeklink'].endswith( 'anderson1' ) :
                     lastName = 'Anderson-D'
+                elif firstName == 'Matt' and lastName == 'Murray' and not dataDict['capgeeklink'].endswith( 'murray1' ) :
+                    lastName = 'Murray-2'
                 newName = firstName.strip() + ' ' + lastName.strip()
                 dataDict['name'] = newName
                 dataDict['keyname'] = dataDict['name'].lower()
