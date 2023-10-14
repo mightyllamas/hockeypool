@@ -48,7 +48,7 @@ TeamNames = [
 NumNHLTeams = 32
 
 def ActiveTeamNames() :
-    return (x for x in TeamNames if x[6])
+	return (x for x in TeamNames if x[6])
 
 TeamAbbrevs = dict( (x[1],x[0]) for x in TeamNames )
 TeamNameFromAbbrev = dict( (x[0],x[1]) for x in TeamNames )
@@ -59,32 +59,32 @@ TeamNameFromNHLAbbrev = dict( (x[8],x[1]) for x in TeamNames )
 TeamAltSuffixFromAbbrev = dict( (x[0],x[5]) for x in TeamNames )
 
 PositionNameDict = {
-    'lw':'Left Wing',
-    'rw':'Right Wing',
-    'c':'Centre',
-    'd':'Defence',
-    'g':'Goalie'
+	'lw':'Left Wing',
+	'rw':'Right Wing',
+	'c':'Centre',
+	'd':'Defence',
+	'g':'Goalie'
 }
 
 FunnyNames = { 'lw' : 'Larry', 'rw' : 'Ralph', 'c' : 'Charlie', 'd' : 'Doug' }
 
 
 def TidyPosition( pos ) :
-    pos = pos.lower()
-    if pos == 'l' or pos == 'r' :
-        return pos + 'w'
-    return pos
+	pos = pos.lower()
+	if pos == 'l' or pos == 'r' :
+		return pos + 'w'
+	return pos
 
 
 PlayoffRoundDict = {
-    'round1' : 'First Round',
-    'round2' : 'Quarter Finals',
-    'round3' : 'Semi Finals',
-    'round4' : 'Stanley Cup'
+	'round1' : 'First Round',
+	'round2' : 'Quarter Finals',
+	'round3' : 'Semi Finals',
+	'round4' : 'Stanley Cup'
 }
 
 def MakeListByPosition() :
-    return dict( (x,[]) for x in PositionNameDict.iterkeys() )
+	return dict( (x,[]) for x in PositionNameDict.iterkeys() )
 
 StatsFields = ['points', 'gamesplayed', 'assists', 'goals', 'plusminus', 'faceoffs', 'faceoffsWon', 'wins', 'losses', 'shots', 'saves', 'minutes', 'shutouts']
 
@@ -92,101 +92,105 @@ TodaysDate = datetime.date.today()
 YesterdaysDate = TodaysDate - datetime.timedelta(days=1)
 
 def Init() :
-    locale.setlocale(locale.LC_ALL,"")
+	locale.setlocale(locale.LC_ALL,"")
 
 
 def CalcGAA( shots, saves, minutes ) :
-    return 0.0 if minutes == 0 else float(shots - saves) / minutes * 60
+	return 0.0 if minutes == 0 else float(shots - saves) / minutes * 60
 
 def CalcPPG( points, gp ) :
-    if gp == 0 : return 0
-    return float(points) / float(gp)
+	if gp == 0 : return 0
+	return float(points) / float(gp)
 
 def CalcSavePercent( saves, shots ) :
-    return 1 if shots == 0 else round( float(saves) / float(shots), 3 )
-                    
+	return 1 if shots == 0 else round( float(saves) / float(shots), 3 )
+					
 
 def Money( x ):
-    return locale.currency( x, grouping=True )[:-3]
+	return locale.currency( x, grouping=True )[:-3]
 
 def Mkdir( dir ) :
-    if not os.path.exists( dir ) :
-        os.makedirs( dir )
+	if not os.path.exists( dir ) :
+		os.makedirs( dir )
 
 digitStart = re.compile('[-0-9.]+$')
 def IsNumeric( val ) :
-    try :
-        return re.match( digitStart, val )
-    except: 
-        print( val )
-        raise
+	try :
+		return re.match( digitStart, val )
+	except: 
+		print( val )
+		raise
 
 def ConvertTuple( x ) :
-    if IsNumeric( x[1] ) :
-        return (x[0], int(x[1]))
-    elif x[0] == 'nhlposition' :
-        return ('nhlPosition', x[1])
-    return x
+	if IsNumeric( x[1] ) :
+		return (x[0], int(x[1]))
+	elif x[0] == 'nhlposition' :
+		return ('nhlPosition', x[1])
+	return x
 
 
 def ExecCommand( cmd, retry=0 ) :
-    while True :
-        retval = os.system( cmd )
-        if retval :
-            print 'Error executing %s' % (cmd)
-            if retry == 0 :
-                sys.exit(1)
-            retry -= 1
-        else:
-            break
+	while True :
+		retval = os.system( cmd )
+		if retval :
+			print 'Error executing %s' % (cmd)
+			if retry == 0 :
+				sys.exit(1)
+			retry -= 1
+		else:
+			break
 
 
 def AllOwnedPlayers() :
-    teamParser = ConfigParser.SafeConfigParser()
-    teamParser.read( 'config/teams.ini' )
-    for section in teamParser.sections() :
-        for playerName in open( 'config/teams/' + section, 'r') :
-            opts = playerName.split( '+' )
-            playerName = opts[0].lower().strip()
-            if playerName:
-                yield playerName 
+	teamParser = ConfigParser.SafeConfigParser()
+	teamParser.read( 'config/teams.ini' )
+	for section in teamParser.sections() :
+		for playerName in open( 'config/teams/' + section, 'r') :
+			opts = playerName.split( '+' )
+			playerName = opts[0].lower().strip()
+			if playerName:
+				yield playerName 
 
 
 def CalcGamesCounting( schedule, theDate ) :
-    if not pool.Started: 
-        return 0, 0
-    totalGames = len(schedule)
-    totalPlayed = sum( 1 for x in schedule if x[0] < theDate )
-    fracGames = float(totalPlayed) / float(totalGames) * (totalGames * 2 / NumNHLTeams)
-    return max(1,int(fracGames)), fracGames
+	if not pool.Started: 
+		return 0, 0
+	if pool.Finished :
+		return 82, 82
+	totalGames = len(schedule)
+	totalPlayed = sum( 1 for x in schedule if x[0] < theDate )
+	fracGames = float(totalPlayed) / float(totalGames) * (totalGames * 2 / NumNHLTeams)
+	return max(1,int(fracGames)), fracGames
 
 
 def SeasonLength( schedule ) :
-    if not pool.Started :
-        return 82
-    return len(schedule) * 2 / NumNHLTeams
+	if not pool.Started :
+		return 82
+	if pool.Finished :
+		return 82
+	return len(schedule) * 2 / NumNHLTeams
 
 
 def ParseDate( x ) :
-    parts = x.split('/')
-    if len(parts) != 3 :
-        Error( 'bad date found: ' + x )
-    return datetime.date( int(parts[2]), int(parts[1]), int(parts[0]) )
+	parts = x.split('/')
+	if len(parts) != 3 :
+		Error( 'bad date found: ' + x )
+	return datetime.date( int(parts[2]), int(parts[1]), int(parts[0]) )
 
 
 def WillSwitchToWing( gp, faceoffs, paPosition, nhlPosition ) :
-    return gp > 0 and (faceoffs / gp) < 5 and paPosition == 'c' and (nhlPosition == 'rw' or nhlPosition == 'lw')
+	return gp > 0 and (faceoffs / gp) < 5 and paPosition == 'c' and (nhlPosition == 'rw' or nhlPosition == 'lw')
 
 def WillSwitchBack( gp, faceoffs, paPosition, nhlPosition ) :
-    return gp > 0 and (faceoffs / gp) > 5 and paPosition == 'c' and (nhlPosition == 'rw' or nhlPosition == 'lw')
+	return gp > 0 and (faceoffs / gp) > 5 and paPosition == 'c' and (nhlPosition == 'rw' or nhlPosition == 'lw')
 
 
 def PositiveNegative( key, printable ) :
-    if key < 0 :
-        printable = "<div class=\"negative\">%s</div>" % printable
-    elif key > 0 :
-        printable = "<div class=\"positive\">%s</div>" % printable
-    return printable
+	if key < 0 :
+		printable = "<div class=\"negative\">%s</div>" % printable
+	elif key > 0 :
+		printable = "<div class=\"positive\">%s</div>" % printable
+	return printable
 
 def PosNeg( key ) :
-    return PositiveNegative( key, str(key) )
+	return PositiveNegative( key, str(key) )

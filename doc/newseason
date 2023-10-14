@@ -4,6 +4,7 @@ edit config/pool.py
 - PrevYears
 - Started
 - FixPositions
+- Finished
 update teams.ini for picks, awards, lastyear
 edit teams to fix up traded players
 hp --newseason
@@ -11,6 +12,8 @@ hp --team
 change minimum salary in pool.py
 change pool salary in pool.py 
 hp -fs capfriendly nhl
+hp -jw
+edit pubsite for new pool year
 
 do the hockey pool draft!
 edit config/pool.py
@@ -18,8 +21,9 @@ edit config/pool.py
 - Started = True
 change years in fetcher.py for nhl, nhlbio, schedule
 add new draft picks in teams.ini
+add new draft picks to config/drafts/draftXXXX.txt
 hp -fs schedule
 hp -fs nhlbio
 hp --startseason
 
-
+first update, don't use --daily, but use --team
