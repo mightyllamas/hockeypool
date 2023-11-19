@@ -146,7 +146,7 @@ if 1 :
 	def Patch() :
 		prevState = UnpickleData( 'poolstate' )
 		playerDict = prevState['playerDict']
-		del playerDict['quintin hughes']
+		del playerDict['michael anderson']
 		PickleData( prevState, 'poolstate' )
 if 0 :
 	def Patch() :

@@ -45,7 +45,7 @@ def ComputeScoring ( teamList, dataDict, dailyData, prevTotal, schedule, cap, ga
         team.prevPoints, prevGamesMissing = team.ComputePoints( team.previous, prevGamesCounting, prevSmallpuckGAA )
         team.predictedPoints, predGamesMissing = team.ComputePoints( team.predicted, util.SeasonLength(schedule), smallpuck.gaa )
         team.predictedToday, x = team.ComputePoints( team.todayPrediction, gamesCounting, smallpuck.gaa )
-        team.FinishStats( gamesCounting )
+        team.FinishStats( gamesCounting, smallpuck.gaa )
         team.AddGhosts( team.gamesMissing, smallpuck, prevGamesMissing, prevSmallpuckGAA )
         team.CalcDeltaScoring()
         team.AddTotals()

@@ -337,7 +337,7 @@ class TeamInfo :
 						player.dpc = player.pc - prev.pc
 						break
 
-	def FinishStats( self, gamesCounting ) :
+	def FinishStats( self, gamesCounting, smallpuck ) :
 		self.stats['gp'] = 0
 		self.stats['pc'] = 0
 		self.stats['age'] = 0
@@ -359,6 +359,13 @@ class TeamInfo :
 			self.stats[pos]['pc'] = round( sum(x.pc for x in playerList), 1 )
 			for stat in ['gp','pc'] :
 				self.stats[stat] += self.stats[pos][stat]
+		if pos == 'g' :
+		 	gp = self.stats['g']['gp']
+		 	if gp < 0 :
+				self.stats['g']['gaa'] = (-self.stats['g']['pc'])/(gamesCounting + gp)
+		 		self.stats['g']['pc'] += gp * smallpuck
+			else :
+				self.stats['g']['gaa'] = (-self.stats['g']['pc'])/gamesCounting
 		numPlayers = 22 - self.emptySpots
 		self.stats['number'] = numPlayers
 		if totalKnownAge == 0 : # hack fix
@@ -509,8 +516,12 @@ def MakeTeamStatPages( teamList ) :
 	for pos, fancyName in util.PositionNameDict.iteritems() :
 		statsList = ['%s-%s' % (x,pos) for x in statsBase]
 		subsDict['sortKey'] = 'pc-' + pos
+		usedHeaders = headers
+		if pos == 'g' :
+			statsList.append( 'gaa-g' )
+			usedHeaders = headers + ['GAA']
 		teamList.sort( key=lambda x:x.stats[pos]['pc'], reverse=True )
-		GenPages( headers, statsList, pos, fancyName )
+		GenPages( usedHeaders, statsList, pos, fancyName )
 	getKeys = util.PositionNameDict.iterkeys
 	for index, titles in itertools.izip( itertools.count(), summaryTitles ) :
 		mainStat = statsBase[index]
