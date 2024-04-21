@@ -518,8 +518,9 @@ def MakeTeamStatPages( teamList ) :
 		subsDict['sortKey'] = 'pc-' + pos
 		usedHeaders = headers
 		if pos == 'g' :
-			statsList.append( 'gaa-g' )
-			usedHeaders = headers + ['GAA']
+			statsList.insert(2, 'gaa-g' )
+			usedHeaders = copy.copy(headers)
+			usedHeaders.insert( 2, 'GAA' )
 		teamList.sort( key=lambda x:x.stats[pos]['pc'], reverse=True )
 		GenPages( usedHeaders, statsList, pos, fancyName )
 	getKeys = util.PositionNameDict.iterkeys

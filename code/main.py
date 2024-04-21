@@ -144,9 +144,14 @@ def FixContract( x ) :
 
 if 1 :
 	def Patch() :
+		RenamePlayer( 'emil martinsen lilleberg', 'emil lilleberg' )
+
+if 0 :
+	def Patch() :
 		prevState = UnpickleData( 'poolstate' )
 		playerDict = prevState['playerDict']
 		del playerDict['michael anderson']
+		del playerDict['john-jason peterka']
 		PickleData( prevState, 'poolstate' )
 if 0 :
 	def Patch() :

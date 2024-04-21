@@ -8,6 +8,6 @@ MultiYearPool = True
 PoolYear = 2024
 PrevYears = 15
 Started = True
-Finished = False
+Finished = True
 FixPositions = True
 
