@@ -38,7 +38,8 @@ TeamNames = [
 ('los', 'Los Angeles Kings', 'Kings', 22, 'Los Angeles','lak',True,26,'lak'),
 #('pho', 'Phoenix Coyotes', 'Coyotes', 38, 'Arizona','phx',True,','phx'),
 #('pho', 'Phoenix Coyotes', 'Coyotes', 38, 'Phoenix','phx',False,'phx'),
-('ari', 'Arizona Coyotes', 'Coyotes', 38, 'Arizona','ari',True,53,'ari'),
+('ari', 'Arizona Coyotes', 'Coyotes', 38, 'Arizona','ari',False,53,'ari'),
+('uta', 'Utah HC', 'Coyotes', 38, 'Utah','uta',True,59,'uta'),
 ('san', 'San Jose Sharks', 'Sharks', 41, 'San Jose','sjs',True,28,'sjs'),
 ('wpg', 'Winnipeg Jets', 'Jets', 1798, 'Winnipeg', 'wpg', True,52,'wpg'),
 ('vgk', 'Vegas Golden Knights', 'Golden Knights', 1799, 'Vegas', 'vgk', True, 54, 'vgk'),
@@ -57,6 +58,7 @@ TeamSuffixFromAbbrev = dict( (x[0],x[2]) for x in TeamNames )
 TeamNameFromLowerSuffix = dict( (x[2].lower().replace(' ',''), x[1]) for x in TeamNames )
 TeamNameFromNHLAbbrev = dict( (x[8],x[1]) for x in TeamNames )
 TeamAltSuffixFromAbbrev = dict( (x[0],x[5]) for x in TeamNames )
+TeamNameFromNHLId = dict( (x[7],x[1]) for x in TeamNames )
 
 PositionNameDict = {
 	'lw':'Left Wing',
@@ -154,7 +156,7 @@ def AllOwnedPlayers() :
 
 def CalcGamesCounting( schedule, theDate ) :
 	if not pool.Started: 
-		return 0, 0
+		return 0,0 
 	if pool.Finished :
 		return 82, 82
 	totalGames = len(schedule)
@@ -194,3 +196,11 @@ def PositiveNegative( key, printable ) :
 
 def PosNeg( key ) :
 	return PositiveNegative( key, str(key) )
+
+
+def ReadFile( fName ) :
+	file = open( fName, 'r' )
+	data = file.read()
+	file.close()
+	return data
+

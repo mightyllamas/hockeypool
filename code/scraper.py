@@ -13,12 +13,6 @@ import pprint
 import fetcher
 
 
-def ReadFile( fName ) :
-	file = open( fName, 'r' )
-	data = file.read()
-	file.close()
-	return data
-
 def UnParen( name ) :
 	index = name.find( '(' )
 	if index >= 0 :
@@ -33,7 +27,7 @@ def GetStringChildren( soupObj ) :
 
 # TODO: support points for goalies when they have them.
 def ScrapeYahoo( fName ) :
-	soup = BeautifulSoup.BeautifulSoup( ReadFile( fName ) )
+	soup = BeautifulSoup.BeautifulSoup( util.ReadFile( fName ) )
 	team = util.TeamNameFromAbbrev[fName[-8:-5]]		 # fname should be "...yahoo_ana.html"
 	playerDict = {}
 	tables = soup.findAll( 'div', 'data-container' )
@@ -95,24 +89,29 @@ def FixSpecialCharacters( name ) :
 	x = x.replace( u'\xfc', u'u' )
 	x = x.replace( u'\xf6', u'o' )
 	x = x.replace( u'\x1a', u'c' )
+	x = x.replace( u'\xa7', u'a' )
+	x = x.replace( u'\xfd', u'y' )
+	x = x.replace( u'\xfc', u'u' )
 	x = x.replace( u'\u010d', u'c' )
+	x = x.replace( u'\u011b', u'e' )
 	return x.replace( u'\xc9', u'E' )
 
 def ScrapeSchedule( fName ) :
-	stuff = json.loads( ReadFile( fName ) ) 
+	stuff = json.loads( util.ReadFile( fName ) ) 
 	schedList = []
-	for date in stuff['dates'] :
-		components = date['date'].split('-')
+	for outer in stuff['gameWeek'] :
+		components = outer['date'].split('-')
 		currentDate = datetime.date( int(components[0]), int(components[1]), int(components[2]) )
-		schedList.extend( (currentDate, FixSpecialCharacters(g['teams']['away']['team']['name']),FixSpecialCharacters(g['teams']['home']['team']['name'])) for g in date['games'] )
-	schedList.sort()
+		for info in outer['games'] :
+			if info['gameType'] == 2 :
+				schedList.append( (currentDate, util.TeamNameFromNHLId[info['homeTeam']['id']], util.TeamNameFromNHLId[info['awayTeam']['id']] ) )
 	return schedList
 
 class ParseMode :
 	Active, Inactive, Retained = range(3)
 
 def ScrapeCapFriendly( fName ) :
-	soup = BeautifulSoup.BeautifulSoup( ReadFile( fName ) )
+	soup = BeautifulSoup.BeautifulSoup( util.ReadFile( fName ) )
 	lowerSuffix = fName.split('_')[1][:-5].lower()
 	team = util.TeamNameFromAbbrev[lowerSuffix]
 	allKids = soup.findAll( 'tr' )
@@ -222,6 +221,8 @@ def ScrapeCapFriendly( fName ) :
 							val = div.find(text=True)
 					else :
 						def LookForValue( what ) :
+							if isinstance( what, BeautifulSoup.NavigableString ) :
+								return str(what)
 							if len(what.contents) == 0 :
 								what = what.string
 							else :
@@ -253,7 +254,128 @@ def ScrapeCapFriendly( fName ) :
 	return [(playerList, retainedList)]
 
 
-def PostProcessCapFriendly( dataList ) :
+def NoStringKids( rec ) :
+	return [x for x in rec.contents if not isinstance( x, BeautifulSoup.NavigableString )]
+
+def AllText( what ) :
+	return ''.join( x.encode('utf-8').strip() for x in what.findAll(text=True) )
+
+Contains_pp_layout_main = re.compile( ".*pp_layout_main.*" )
+
+def ScrapePuckPedia( fName ) :
+	soup = BeautifulSoup.BeautifulSoup( util.ReadFile( fName ) )
+	lowerSuffix = fName.split('_')[1][:-5].lower()
+	team = util.TeamNameFromAbbrev[lowerSuffix]
+	allKids = soup.findAll( 'div', attrs={"class": Contains_pp_layout_main} )
+	playerList = []
+	retainedList = []
+	inOthers = True
+	mode = ParseMode.Active
+	# first find the div with all the stuff in it
+	foundRecs = None
+	for record in allKids :
+		notString = NoStringKids( record )
+		firstDiv = notString[0]
+		if firstDiv.name != 'div' :
+			continue
+		divId = firstDiv.get( 'id', '' )
+		if divId.startswith( 'capby_' ) :
+			foundRecs = notString
+			break
+	if foundRecs == None :
+		raise Exception( "capby div not found" )
+	
+	for record in foundRecs :
+		try :
+			if record.name != 'div' :
+				continue
+			divId = record.get( 'id', '' )
+			if divId.startswith( 'capby_' ) :
+				tableName = divId[6:]	# remove the capby_
+				activeNames = ['forwards', 'defence', 'goaltenders', 'buried']
+				retainedNames = ['buyout','retained']
+				inactiveNames = ['nonroster_forwards', 'nonroster_defence', 'nonroster_goaltenders']
+				if tableName in activeNames :
+					mode = ParseMode.Active
+				elif tableName in retainedNames :
+					mode = ParseMode.Retained
+				elif tableName in inactiveNames :
+					mode = ParseMode.Inactive 
+				else :
+					raise Exception( "found an unknown tableName: %s" % tableName )
+				continue
+
+			if mode == ParseMode.Inactive :
+				continue
+			className = record.get( 'class', '' )
+			if 'pp_table-wrapper' not in className :
+				continue
+			body = record.table.tbody
+			for playerRec in body.findAll( 'tr' ) :
+				playerTD = playerRec.findAll( 'td' )
+				nameRec = playerTD[0]
+				if mode == ParseMode.Retained :
+					allText = AllText( nameRec )
+					if allText.find( 'Retained' ) == -1 :
+						continue
+				nameA = nameRec.find( 'a' )
+				dataDict = {}
+				dataDict['capgeeklink'] = 'http://www.puckpedia.com' + nameA['href'] 
+				name = nameA.string
+				name = unicodedata.normalize('NFD', name)
+				name = name.encode('ascii', 'ignore')
+				name = name.replace( '&#39;', "'" )
+				name = FixSpecialCharacters(name)
+				splitName = name.split( ','  )
+				if len(splitName) != 2 :
+					raise Exception( "found an unexpected name format.	Want comma separated. name %s, team %s".format(name,team)  )
+				lastName, firstName = splitName
+				if dataDict['capgeeklink'].endswith( 'aho-1' ) :
+					lastName = 'Aho-D'
+				elif firstName == 'Matthew' and lastName == 'Murray' :
+					lastName = 'Murray-2'
+				newName = firstName.strip() + ' ' + lastName.strip()
+				dataDict['name'] = newName
+				dataDict['keyname'] = dataDict['name'].lower()
+				contract = []
+				for tdRec in playerTD[1:] :
+					dataCh = tdRec.get( 'data-ch', '' )
+					if dataCh :
+						dataCh = dataCh.replace( '$', '' )
+						dataCh = dataCh.replace( ',', '' )
+						contract.append( dataCh.encode('utf-8') )
+					else :
+						try :
+							tdKids = NoStringKids( tdRec )
+							if len(tdKids) > 1 :
+								faType = AllText( tdKids[1] )
+								if len(tdKids) > 2 :
+									faEnd = AllText( tdKids[2] )
+									contract.append( faType + ' ' + faEnd )
+								else :
+									contract.append( faType )
+						except :
+							print( tdKids )
+							raise
+						break
+				while( len(contract) < 5 ) :
+					contract.append( '' )
+				dataDict['contract'] = contract
+				dataDict['team'] = team
+				dataDict['active'] = mode == ParseMode.Active
+				if mode == ParseMode.Retained :
+					retainedList.append( dataDict )
+				else :
+					playerList.append( dataDict )
+		except :
+			print( fName )
+			pprint.pprint( record )
+			raise
+	if not playerList :
+		raise Exception( "No players found in %s - check scraping code." % fName )
+	return [(playerList, retainedList)]
+
+def PostProcessSalaryData( dataList ) :
 	players = []
 	playerLookup = {}
 	for x in dataList :
@@ -270,18 +392,19 @@ def PostProcessCapFriendly( dataList ) :
 			player = playerLookup[r['name']]
 			contract = player['contract']
 			for index, val in enumerate(r['contract']) :
-				if util.IsNumeric( val ) and util.IsNumeric(contract[index]) :
-					try :
+				try :
+					if util.IsNumeric( val ) and util.IsNumeric(contract[index]) :
 						contract[index] = str(int(contract[index]) + int(val))
-					except :
-						print( contract[index] )
-						print( val )
-						print( r['name'] )
-						raise
+				except :
+					print( index )
+					print( contract )
+					print( val )
+					print( r['name'] )
+					raise
 	return players
 
 def ScrapeNHLNumbers( fName ) :
-	soup = BeautifulSoup.BeautifulSoup( ReadFile( fName ) )
+	soup = BeautifulSoup.BeautifulSoup( util.ReadFile( fName ) )
 	lowerSuffix = fName.split('_')[1][:-5].lower()
 	team = util.TeamNameFromNHLNumbersAbbrev[lowerSuffix]
 	allKids = soup.findAll( 'tr' )
@@ -358,7 +481,7 @@ def ScrapeNHLNumbers( fName ) :
 def ScrapeCapGeek( fName ) :
 	lowerSuffix = fName.split('_')[1][:-5]
 	team = util.TeamNameFromLowerSuffix[lowerSuffix]
-	soup = BeautifulSoup.BeautifulSoup( ReadFile( fName ) )
+	soup = BeautifulSoup.BeautifulSoup( util.ReadFile( fName ) )
 	body = soup.find( 'tbody' )
 	playerList = []
 	skip = False
@@ -410,7 +533,7 @@ def ScrapeCapGeek( fName ) :
 
 
 def ScrapeInjuries( fName ) :
-	soup = BeautifulSoup.BeautifulSoup( ReadFile( fName ) )
+	soup = BeautifulSoup.BeautifulSoup( util.ReadFile( fName ) )
 	injuryList = []
 	for tableRow in soup.findAll( 'tr', attrs={'class':re.compile('ysprow.*')} ) :
 		dataVals = tableRow.fetch( 'td' )
@@ -434,7 +557,7 @@ def ScrapeYahooBio( bioData, yahooData ) :
 	toGet = inYahoo.difference( x['id'] for x in bioData )
 	for yahooId in toGet :
 		fName = 'fetch/yahoobio/id%s.html' % yahooId
-		soup  = BeautifulSoup.BeautifulSoup( ReadFile( fName ) )
+		soup  = BeautifulSoup.BeautifulSoup( util.ReadFile( fName ) )
 		statsEntry = soup.find( 'ul', 'stats' )
 		try : 
 			if not statsEntry :
@@ -496,7 +619,7 @@ def NHLNameFix( d ) :
 	d['name'] = d['name'].encode()
 
 def ScrapeNHL( fName ) :
-	stuff = json.loads( ReadFile( fName ) ) 
+	stuff = json.loads( util.ReadFile( fName ) ) 
 	result = [dict((KeyFix(k),v) for k,v in x.iteritems()) for x in stuff['data']]
 	for x in result :
 		try : 
@@ -520,7 +643,7 @@ def ScrapeNHL( fName ) :
 	return result
 
 def ScrapeNHLBio( fName ) :
-	stuff = json.loads( ReadFile( fName ) ) 
+	stuff = json.loads( util.ReadFile( fName ) ) 
 	result = [dict((str(k),v) for k,v in x.iteritems()) for x in stuff['data']]
 	for player in result :
 		birthDate = [int(x) for x in player['birthDate'].split('-')]
@@ -547,6 +670,7 @@ ScrapeFuncDict = {
 	'capfriendly' : ScrapeCapFriendly,
 	'nhl' : ScrapeNHL,
 	'nhlbio' : ScrapeNHLBio,
+	'puckpedia' : ScrapePuckPedia,
 }
 
 def ScrapeData( source ) :
@@ -556,6 +680,8 @@ def ScrapeData( source ) :
 	dataList = []
 	for filename in files :
 		dataList = dataList + scrapeFunc( filename )
-	if source == 'capfriendly' :
-		dataList = PostProcessCapFriendly( dataList )
+	if source == 'capfriendly' or source == 'puckpedia' :
+		dataList = PostProcessSalaryData( dataList )
+	elif source == 'schedule' :
+		dataList = sorted(dataList)
 	return dataList

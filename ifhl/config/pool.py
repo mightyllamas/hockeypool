@@ -5,9 +5,9 @@ UsesSalary = True
 RegularSeason = True
 UsesSchedule = True
 MultiYearPool = True
-PoolYear = 2024
-PrevYears = 15
+PoolYear = 2025
+PrevYears = 16
 Started = True
-Finished = True
+Finished = False
 FixPositions = True
 

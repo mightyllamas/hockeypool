@@ -5,5 +5,5 @@ UsesSalary = False
 UsesSchedule = False
 RegularSeason = False
 MultiYearPool = False
-PoolYear = 2024
+PoolYear = 2025
 Started = True

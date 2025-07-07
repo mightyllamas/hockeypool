@@ -232,7 +232,7 @@ def CalculateDailyData( prevState, totalData ) :
 				WriteLogFile( 'data anomaly for %s.  Checking if NHL changed the name' % name )
 				matchedName = GetNameMatcher().FindMatchingName( name, oldTotal )
 				if not matchedName :
-					if  0: # name.endswith('cousins') or name.endswith('girard') : #or name == 'mike smith' or name == 'stuart skinner' or name.endswith('koskinen') or name == 'andrew hammond' or name == 'tuukka rask' or name.endswith('berube') :
+					if  name.endswith('greer') : # or name.endswith('girard') : #or name == 'mike smith' or name == 'stuart skinner' or name.endswith('koskinen') or name == 'andrew hammond' or name == 'tuukka rask' or name.endswith('berube') :
 						print( "slamming in " + name )
 						if 1 :
 							entries[name] = dict( (x, data[x]) for x in util.StatsFields if x in data )

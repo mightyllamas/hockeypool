@@ -364,8 +364,10 @@ class TeamInfo :
 		 	if gp < 0 :
 				self.stats['g']['gaa'] = (-self.stats['g']['pc'])/(gamesCounting + gp)
 		 		self.stats['g']['pc'] += gp * smallpuck
-			else :
+			elif gamesCounting > 0:
 				self.stats['g']['gaa'] = (-self.stats['g']['pc'])/gamesCounting
+			else :
+				self.stats['g']['gaa'] = 0.0
 		numPlayers = 22 - self.emptySpots
 		self.stats['number'] = numPlayers
 		if totalKnownAge == 0 : # hack fix
@@ -784,7 +786,7 @@ def GenerateSite( dataDict, prevState, teamData, schedule, totalData, dailyData,
 		subsDict['fracGames'] = fracGames
 	cap = 0
 	if pool.UsesSalary :
-		cap = 83500000 * 1.4
+		cap = 87700000 * 1.4
 		subsDict['cap'] = util.Money(cap)
 	teamList, smallPuck = MakeTeamList( teamData, dataDict, dailyData, prevState['totaldata'], schedule, cap, gamesCounting )
 	teamDict = dict( (team.section, team) for team in teamList )

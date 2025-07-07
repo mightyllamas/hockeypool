@@ -17,7 +17,7 @@ import pool
 import history
 import team
 
-SalarySource = 'capfriendly'
+SalarySource = 'puckpedia'
 
 
 def MakePickleName( x, season=pool.PoolYear ) :
@@ -140,19 +140,19 @@ def FixContract( x ) :
 		if len(val) > 3 :
 			val = val[:3]
 	return	val
-		
 
-if 1 :
-	def Patch() :
-		RenamePlayer( 'emil martinsen lilleberg', 'emil lilleberg' )
 
 if 0 :
 	def Patch() :
-		prevState = UnpickleData( 'poolstate' )
+		RenamePlayer( 'emil martinsen lilleberg', 'emil lilleberg' )
+
+if 1 :
+	def Patch() :
+		prevState = UnpickleData( 'prevstate' )
 		playerDict = prevState['playerDict']
 		del playerDict['michael anderson']
 		del playerDict['john-jason peterka']
-		PickleData( prevState, 'poolstate' )
+		PickleData( prevState, 'prevstate' )
 if 0 :
 	def Patch() :
 		prevState = UnpickleData( 'prevstate' )
